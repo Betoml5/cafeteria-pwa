@@ -7,14 +7,21 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "prompt",
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      devOptions: {
+        enabled: true,
+      },
       workbox: {
         //cacheConfig
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
+        cleanupOutdatedCaches: true,
+        sourcemap: true,
       },
       manifest: {
-        name: "React-vite-app",
-        short_name: "react-vite-app",
-        description: "I am a simple vite app",
+        name: "Cafetería TEC",
+        short_name: "Cafetería TEC",
+        description: "Una aplicación web para la Cafetería TEC",
         icons: [
           {
             src: "/android-chrome-192x192.png",

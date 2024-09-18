@@ -1,15 +1,11 @@
-import { FC } from "react";
 import Header from "../components/shared/Header";
+import { Outlet } from "react-router-dom";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const MainLayout: FC<Props> = ({ children }) => {
+const MainLayout = () => {
   return (
     <>
       <Header />
-      {children}
+      <Outlet />
     </>
   );
 };

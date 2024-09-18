@@ -7,7 +7,7 @@ html {
 }
 
 .table {
-  @apply w-full border-gray-500/50 border-collapse;
+  @apply w-full border-gray-500/50 border;
 }
 
 .th {
@@ -44,6 +44,21 @@ html {
 
 .select {
   @apply rounded-lg text-white font-bold bg-primary-color px-4 py-2;
+}
+
+.dayMenu::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 10px;
+  height: 4px;
+  background-color: #fff;
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+
+.dayMenu::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
 }
 
 @tailwind utilities;

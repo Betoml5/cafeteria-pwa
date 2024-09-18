@@ -1,7 +1,10 @@
 const CreateCategoriaForm = () => {
   return (
-    <div className="bg-secondary-color border border-gray-500/50 p-4 rounded-lg">
-      <form className="flex flex-col">
+    <div className="mx-4 my-10 max-w-xl md:mx-auto">
+      <h1 className="text-center font-bold text-5xl mb-10">
+        Agregar categoría
+      </h1>
+      <form className="flex flex-col bg-secondary-color border border-gray-500/50 p-4 rounded-lg">
         <div className="form-group">
           {" "}
           <label className="label" htmlFor="name">
@@ -13,7 +16,7 @@ const CreateCategoriaForm = () => {
             placeholder="Nombre de la categoría"
           />
         </div>
-        <img src="/icon.png" alt="Agregar categoría" />
+        <img src="/icon.png" alt="Agregar categoría" className="mt-4" />
 
         <input
           className="my-4"
@@ -21,7 +24,7 @@ const CreateCategoriaForm = () => {
           src="/add.png"
           alt="Agregar categoría"
         />
-        <div className="flex justify-center ">
+        <div className="flex justify-center  mt-10">
           <button className="btn mr-2">Agregar</button>
           <button className="btn bg-gray-500">Cancelar</button>
         </div>

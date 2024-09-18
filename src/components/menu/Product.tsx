@@ -6,7 +6,7 @@ interface Props {
 
 const Product: FC<Props> = ({ product }) => {
   return (
-    <div className="flex flex-col  border border-gray-500/70 bg-secondary-color rounded-lg p-4 m-2">
+    <div className="flex flex-col  border border-gray-500/70 bg-secondary-color rounded-lg p-4 ">
       <img
         className="w-48 h-48 self-center"
         src={product.image}

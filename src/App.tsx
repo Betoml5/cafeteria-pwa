@@ -1,11 +1,18 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import DayMenu from "./components/menu/DayMenu";
-import products from "./data.json";
+
+import Home from "./screens/Home";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
+import Dashboard from "./screens/admin/Dashboard";
 function App() {
   return (
-    <>
-      <DayMenu products={products} />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/admin"
+        element={<ProtectedRoute element={Dashboard} fallbackPath="/" />}
+      />
+    </Routes>
   );
 }
 

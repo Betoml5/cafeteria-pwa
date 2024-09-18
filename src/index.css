@@ -3,5 +3,43 @@
 
 html {
   font-family: "Roboto", sans-serif;
+  background-color: #fff2f2;
 }
+
+.table {
+  @apply w-full border-gray-500/50 border-collapse;
+}
+
+.th {
+  @apply bg-secondary-color text-left border-b border-gray-500/50 p-4 text-xl font-bold;
+}
+
+.td {
+  @apply bg-secondary-color text-left border-b border-gray-500/50 p-4;
+}
+
+.input {
+  @apply rounded-lg border border-gray-500/70 bg-secondary-color p-2 text-white;
+}
+
+.input:focus {
+  @apply border-primary-color;
+}
+
+.input::placeholder {
+  @apply text-gray-500;
+}
+
+.form-group {
+  @apply flex flex-col;
+}
+
+.label {
+  @apply text-2xl font-bold mb-2;
+}
+
+.btn {
+  @apply rounded-lg bg-primary-color text-white px-8 py-2 font-bold;
+}
+
 @tailwind utilities;

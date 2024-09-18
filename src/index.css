@@ -42,4 +42,8 @@ html {
   @apply rounded-lg bg-primary-color text-white px-8 py-2 font-bold;
 }
 
+.select {
+  @apply rounded-lg text-white font-bold bg-primary-color px-4 py-2;
+}
+
 @tailwind utilities;

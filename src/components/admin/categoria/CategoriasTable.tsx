@@ -1,6 +1,15 @@
 const CategoriasTable = ({ categorias }) => {
   return (
-    <div className="">
+    <div className="flex flex-col ">
+      <div className="flex items-center justify-between my-4">
+        <div className="flex items-center">
+          <h2 className="text-3xl font-bold mr-4">Categorías</h2>
+          <button className="btn py-1 self-end">Agregar</button>
+        </div>
+        <select name="" id="" className="select">
+          <option value="">Categoría</option>
+        </select>
+      </div>
       <table className="table">
         <thead>
           <tr>

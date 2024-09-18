@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Pizza",
+    "price": 12.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Burger",
+    "price": 9.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Pasta",
+    "price": 11.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Salad",
+    "price": 8.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Sushi",
+    "price": 14.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Tacos",
+    "price": 10.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Steak",
+    "price": 19.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Ice Cream",
+    "price": 5.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Fries",
+    "price": 3.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  },
+  {
+    "name": "Soup",
+    "price": 7.99,
+    "image": "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
+    "isAvailable": true
+  }
+]

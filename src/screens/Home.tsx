@@ -4,6 +4,7 @@ import products from "../data.json";
 import categorias from "../categorias.json";
 import CategoriasTable from "../components/admin/categoria/CategoriasTable";
 import Hero from "../components/Hero";
+import Categories from "../components/menu/Categories";
 const Home = () => {
   return (
     <div>
@@ -11,6 +12,7 @@ const Home = () => {
       {/* <CategoriasTable categorias={categorias} /> */}
       <Hero />
       <div className="p-4">
+        <Categories />
         <h1 className="text-center font-bold text-5xl my-4">Menú del dia</h1>
         <div className="flex overflow-x-auto dayMenu snap-proximity overscroll-x-contain md:flex-wrap md:justify-center">
           <DayMenu products={products} />

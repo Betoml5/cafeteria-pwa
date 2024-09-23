@@ -5,6 +5,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import MainLayout from "./layouts/MainLayout";
 import CreateCategoriaForm from "./components/admin/forms/CreateCategoriaForm";
 import UpdateCategoriaForm from "./components/admin/forms/UpdateCategoriaForm";
+import UpdateDayMenu from "./screens/admin/UpdateDayMenu";
 function App() {
   return (
     <Routes>
@@ -22,6 +23,8 @@ function App() {
           path="/admin/categorias/editar"
           element={<UpdateCategoriaForm />}
         />
+        <Route path="/admin/categorias/:id" element={<UpdateCategoriaForm />} />
+        <Route path="/admin/actualizar-menu" element={<UpdateDayMenu />} />
       </Route>
     </Routes>
   );

@@ -1,15 +1,8 @@
+import { Link } from "react-router-dom";
+
 const CategoriasTable = ({ categorias }) => {
   return (
     <div className="flex flex-col ">
-      <div className="flex items-center justify-between my-4">
-        <div className="flex items-center">
-          <h2 className="text-3xl font-bold mr-4">Categorías</h2>
-          <button className="btn py-1 self-end">Agregar</button>
-        </div>
-        <select name="" id="" className="select">
-          <option value="">Categoría</option>
-        </select>
-      </div>
       <table className="table">
         <thead>
           <tr>
@@ -22,7 +15,11 @@ const CategoriasTable = ({ categorias }) => {
         <tbody>
           {categorias.map((item) => (
             <tr>
-              <td className="td">{item.name}</td>
+              <td className="td">
+                <Link className="underline" to={`/admin/categorias/${item.id}`}>
+                  {item.name}
+                </Link>
+              </td>
               <td className="td">{item.products.length}</td>
               <td className="td">
                 <button className="mr-4">
@@ -34,6 +31,12 @@ const CategoriasTable = ({ categorias }) => {
               </td>
             </tr>
           ))}
+
+          <tr>
+            <td className="td text-right" colSpan={3}>
+              <button className="underline">Agregar</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

@@ -1,9 +1,6 @@
 const CreateCategoriaForm = () => {
   return (
     <div className="mx-4 my-10 max-w-xl md:mx-auto">
-      <h1 className="text-center font-bold text-5xl mb-10">
-        Agregar categoría
-      </h1>
       <form className="flex flex-col bg-secondary-color border border-gray-500/50 p-4 rounded-lg">
         <div className="form-group">
           {" "}
@@ -16,7 +13,7 @@ const CreateCategoriaForm = () => {
             placeholder="Nombre de la categoría"
           />
         </div>
-        <img src="/icon.png" alt="Agregar categoría" className="mt-4" />
+        {/* <img src="/icon.png" alt="Agregar categoría" className="mt-4" /> */}
 
         <input
           className="my-4"

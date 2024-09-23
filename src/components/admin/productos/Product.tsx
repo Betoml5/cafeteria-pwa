@@ -1,20 +1,21 @@
 const Product = () => {
   return (
-    <div>
-      <img src="/product.png" alt="Producto" />
-      <h3>Producto</h3>
-
-      <input type="checkbox" name="isAvaliable" id="isAvaliable" />
+    <div className="flex flex-col bg-white border border-gray-500/70 rounded-lg p-4 m-2 min-w-40 snap-center">
+      <img
+        className="w-32 h-32 object-contain self-center"
+        src="/dish.png"
+        alt="Producto"
+      />
       <div>
-        <div>
-          <button>
-            <img src="/delete.png" alt="Eliminar" />
-          </button>
-          <button>
-            <img src="/edit.png" alt="Editar" />
-          </button>
-        </div>
-        <p>$10.00</p>
+        <h3>Producto</h3>
+
+        <input
+          className="mr-2"
+          type="checkbox"
+          name="isAvaliable"
+          id="isAvaliable"
+        />
+        <label htmlFor="isAvaliable">Seleccionar</label>
       </div>
     </div>
   );

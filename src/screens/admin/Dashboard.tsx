@@ -25,7 +25,7 @@ const Dashboard = () => {
             Modificar menu
           </Link>
         </div>
-        <div className="flex overflow-x-auto dayMenu snap-proximity overscroll-x-contain">
+        <div className="flex gap-x-2 overflow-x-auto dayMenu mx-2">
           <DayMenu products={products} />
         </div>
       </div>

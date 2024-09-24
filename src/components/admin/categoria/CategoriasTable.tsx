@@ -23,10 +23,10 @@ const CategoriasTable = ({ categorias }) => {
               <td className="td">{item.products.length}</td>
               <td className="td">
                 <button className="mr-4">
-                  <img src="/delete.png" alt="Eliminar" />
+                  <img className="w-8 h-8" src="/delete.png" alt="Eliminar" />
                 </button>
                 <button>
-                  <img src="/edit.png" alt="Editar" />
+                  <img className="w-8 h-8" src="/edit.png" alt="Editar" />
                 </button>
               </td>
             </tr>

@@ -1,11 +1,37 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC } from "react";
 import Switch from "../../shared/Switch";
 
-const ProductsTable = ({ products }) => {
+interface Props {
+  products: any;
+}
+
+const ProductsTable: FC<Props> = ({ products }) => {
+  const onClickMenu = (e: any) => {
+    console.log(e);
+    const menu = document.getElementById("menu");
+    if (menu) {
+      menu.style.display = "flex";
+      menu.style.visibility = "visible";
+      if (e.target.tagName === "TD") {
+        e.target.append(menu);
+      }
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
       {/* <div className="flex items-center justify-between mb-4">
         <h2 className="text-3xl font-bold ">Productos</h2>
       </div> */}
+
+      <div
+        id="menu"
+        className=" gap-x-4 bg-white px-4 py-2 border-2 w-fit hidden absolute bottom-0  z-10 "
+      >
+        <button className="text-lg hover:opacity-80 ">Editar</button>
+        <button className="text-lg hover:opacity-80 ">Eliminar</button>
+      </div>
 
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
@@ -71,8 +97,32 @@ const ProductsTable = ({ products }) => {
           <tr>
             <td className="td">Coca Cola</td>
             <td className="td">Bebidas</td>
+            <td
+              onClick={onClickMenu}
+              className="td flex justify-center relative"
+            >
+              <button className="text-3xl font-bold flex">&#8942;</button>
+              {/* <div>
+                <button className="mr-4">
+                  <img src="/delete.png" alt="Eliminar" />
+                </button>
+                <button>
+                  <img src="/edit.png" alt="Editar" />
+                </button>
+              </div> */}
+            </td>
             <td className="td">
-              <div>&&#8942;</div>
+              <Switch />
+            </td>
+          </tr>
+          <tr>
+            <td className="td">Coca Cola</td>
+            <td className="td">Bebidas</td>
+            <td
+              onClick={onClickMenu}
+              className="td flex justify-center relative"
+            >
+              <button className="text-3xl font-bold flex">&#8942;</button>
               {/* <div>
                 <button className="mr-4">
                   <img src="/delete.png" alt="Eliminar" />

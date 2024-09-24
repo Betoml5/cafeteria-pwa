@@ -18,7 +18,7 @@ const Home = () => {
         <div className="flex gap-x-2 overflow-x-auto dayMenu snap-proximity overscroll-x-contain md:flex-wrap md:justify-center">
           <DayMenu products={products} />
         </div>
-        <p className="text-2xl font-semibold mb-2 mt-4">Otros productos</p>
+        <p className="text-3xl font-semibold mb-2 mt-4">Otros productos</p>
         <div className="flex flex-col">
           <div>
             <div className="relative">

@@ -16,12 +16,12 @@ const Product: FC<Props> = ({ product }) => {
       <div className="flex justify-between mt-4">
         <p>
           {product.isAvaliable ? (
-            <span className="text-green-500 text-2xl">Disponible</span>
+            <span className="text-green-500 text-xl">Disponible</span>
           ) : (
-            <span className="text-red-500 text-2xl">Agotado</span>
+            <span className="text-red-500 text-xl">Agotado</span>
           )}
         </p>
-        <p className="text-green-700 font-bold text-3xl">
+        <p className="text-green-700 font-bold text-2xl">
           ${product.price.toFixed(2)}
         </p>
       </div>

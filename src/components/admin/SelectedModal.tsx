@@ -12,7 +12,11 @@ interface Props {
 const SelectedModal: FC<Props> = ({ selectedModal, isOpen, onClose }) => {
   return (
     <>
-      {selectedModal === MODALS_NAMES.ADD_PRODUCT && <CreateProductoForm />}
+      {selectedModal === MODALS_NAMES.ADD_PRODUCT && (
+        <Modal isOpen={isOpen} onClose={onClose} title="Agregar producto">
+          <CreateProductoForm />
+        </Modal>
+      )}
       {selectedModal === MODALS_NAMES.EDIT_PRODUCT && <CreateProductoForm />}
       {selectedModal === MODALS_NAMES.DELETE_PRODUCT && <CreateProductoForm />}
       {selectedModal === MODALS_NAMES.CREATE_CATEGORIA && (

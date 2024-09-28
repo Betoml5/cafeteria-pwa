@@ -7,6 +7,7 @@ import SelectedModal from "../../components/admin/SelectedModal";
 import useProductos from "../../hooks/productos/useProductos";
 import { ICategoria, IProducto } from "../../types";
 import useCategorias from "../../hooks/categorias/useCategorias";
+import { MODALS_NAMES } from "../../constants";
 const Dashboard = () => {
   const [selectedModal, setSelectedModal] = useState("");
   const productos = useProductos();
@@ -36,7 +37,10 @@ const Dashboard = () => {
       </div>
       <div className="col-span-full p-4 lg:col-span-8">
         <p className="text-2xl mb-2">Productos</p>
-        <ProductsTable productos={productos.data as IProducto[]} />
+        <ProductsTable
+          productos={productos.data as IProducto[]}
+          onAdd={() => setSelectedModal(MODALS_NAMES.ADD_PRODUCT)}
+        />
       </div>
       <div className=" col-span-full  p-4 lg:col-span-4">
         <p className="text-2xl mb-2">Categorias</p>

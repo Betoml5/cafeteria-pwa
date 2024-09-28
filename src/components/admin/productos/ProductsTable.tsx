@@ -5,9 +5,10 @@ import { IProducto } from "../../../types";
 
 interface Props {
   productos: IProducto[];
+  onAdd: () => void;
 }
 
-const ProductsTable: FC<Props> = ({ productos }) => {
+const ProductsTable: FC<Props> = ({ productos, onAdd }) => {
   const [filter, setFilter] = useState("");
 
   const onChange = (e: any) => {
@@ -121,7 +122,9 @@ const ProductsTable: FC<Props> = ({ productos }) => {
 
           <tr>
             <td className="td text-right" colSpan={5}>
-              <button className="underline">Agregar</button>
+              <button className="underline" onClick={onAdd}>
+                Agregar
+              </button>
             </td>
           </tr>
         </tbody>

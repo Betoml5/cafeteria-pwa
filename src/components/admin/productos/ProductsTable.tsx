@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from "react";
+import { FC, useMemo, useState } from "react";
 import Switch from "../../shared/Switch";
 import { IProducto } from "../../../types";
 
@@ -8,24 +8,26 @@ interface Props {
 }
 
 const ProductsTable: FC<Props> = ({ productos }) => {
+  const [filter, setFilter] = useState("");
+
   const onChange = (e: any) => {
     console.log(e);
   };
 
+  const filteredProducts = useMemo(() => {
+    if (filter === "") {
+      return productos;
+    } else {
+      return productos.filter((item) =>
+        item.nombre.toLowerCase().includes(filter.toLowerCase())
+      );
+    }
+  }, [filter, productos]);
+
+  console.log(filteredProducts);
+
   return (
     <div className="overflow-x-auto">
-      {/* <div className="flex items-center justify-between mb-4">
-        <h2 className="text-3xl font-bold ">Productos</h2>
-      </div> */}
-
-      {/* <div
-        id="menu"
-        className=" gap-x-4 bg-white px-4 py-2 border-2 w-fit hidden absolute bottom-0  z-10 "
-      >
-        <button className="text-lg hover:opacity-80 ">Editar</button>
-        <button className="text-lg hover:opacity-80 ">Eliminar</button>
-      </div> */}
-
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
           <img
@@ -37,6 +39,7 @@ const ProductsTable: FC<Props> = ({ productos }) => {
             type="text"
             className="input text-black pl-10"
             placeholder="Buscar productos"
+            onChange={(e) => setFilter(e.target.value)}
           />
         </div>
 
@@ -87,7 +90,16 @@ const ProductsTable: FC<Props> = ({ productos }) => {
           </tr>
         </thead>
         <tbody>
-          {productos.map((item) => (
+          {filteredProducts.length === 0 && (
+            <tr>
+              <td className="td text-center" colSpan={5}>
+                <p className="text-center">
+                  No hay productos que coincidan con la búsqueda
+                </p>
+              </td>
+            </tr>
+          )}
+          {filteredProducts.map((item) => (
             <tr>
               <td className="td">{item.nombre}</td>
               <td className="td">{item.idCategoria}</td>

@@ -8,18 +8,6 @@ interface Props {
 }
 
 const ProductsTable: FC<Props> = ({ productos }) => {
-  const onClickMenu = (e: any) => {
-    console.log(e);
-    const menu = document.getElementById("menu");
-    if (menu) {
-      menu.style.display = "flex";
-      menu.style.visibility = "visible";
-      if (e.target.tagName === "TD") {
-        e.target.append(menu);
-      }
-    }
-  };
-
   const onChange = (e: any) => {
     console.log(e);
   };
@@ -30,13 +18,13 @@ const ProductsTable: FC<Props> = ({ productos }) => {
         <h2 className="text-3xl font-bold ">Productos</h2>
       </div> */}
 
-      <div
+      {/* <div
         id="menu"
         className=" gap-x-4 bg-white px-4 py-2 border-2 w-fit hidden absolute bottom-0  z-10 "
       >
         <button className="text-lg hover:opacity-80 ">Editar</button>
         <button className="text-lg hover:opacity-80 ">Eliminar</button>
-      </div>
+      </div> */}
 
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
@@ -103,19 +91,15 @@ const ProductsTable: FC<Props> = ({ productos }) => {
             <tr>
               <td className="td">{item.nombre}</td>
               <td className="td">{item.idCategoria}</td>
-              <td
-                onClick={onClickMenu}
-                className="td flex justify-center relative"
-              >
-                <button className="text-3xl font-bold flex">&#8942;</button>
-                {/* <div>
-                <button className="mr-4">
-                  <img src="/delete.png" alt="Eliminar" />
-                </button>
-                <button>
-                  <img src="/edit.png" alt="Editar" />
-                </button>
-              </div> */}
+              <td className="td">
+                <div>
+                  <button className="mr-4">
+                    <img src="/delete.png" alt="Eliminar" />
+                  </button>
+                  <button>
+                    <img src="/edit.png" alt="Editar" />
+                  </button>
+                </div>
               </td>
               <td className="td">
                 <Switch checked={item.disponible} onChange={onChange} />

@@ -11,8 +11,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* <CreateCategoriaForm /> */}
-      {/* <CategoriasTable categorias={categorias} /> */}
       <Hero />
       <div className="p-4">
         <Categories />

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import Switch from "../../shared/Switch";
+import { IProducto } from "../../../types";
 
 interface Props {
-  products: any;
+  productos: IProducto[];
 }
 
-const ProductsTable: FC<Props> = ({ products }) => {
+const ProductsTable: FC<Props> = ({ productos }) => {
   const onClickMenu = (e: any) => {
     console.log(e);
     const menu = document.getElementById("menu");
@@ -17,6 +18,10 @@ const ProductsTable: FC<Props> = ({ products }) => {
         e.target.append(menu);
       }
     }
+  };
+
+  const onChange = (e: any) => {
+    console.log(e);
   };
 
   return (
@@ -94,15 +99,16 @@ const ProductsTable: FC<Props> = ({ products }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="td">Coca Cola</td>
-            <td className="td">Bebidas</td>
-            <td
-              onClick={onClickMenu}
-              className="td flex justify-center relative"
-            >
-              <button className="text-3xl font-bold flex">&#8942;</button>
-              {/* <div>
+          {productos.map((item) => (
+            <tr>
+              <td className="td">{item.nombre}</td>
+              <td className="td">{item.idCategoria}</td>
+              <td
+                onClick={onClickMenu}
+                className="td flex justify-center relative"
+              >
+                <button className="text-3xl font-bold flex">&#8942;</button>
+                {/* <div>
                 <button className="mr-4">
                   <img src="/delete.png" alt="Eliminar" />
                 </button>
@@ -110,32 +116,12 @@ const ProductsTable: FC<Props> = ({ products }) => {
                   <img src="/edit.png" alt="Editar" />
                 </button>
               </div> */}
-            </td>
-            <td className="td">
-              <Switch />
-            </td>
-          </tr>
-          <tr>
-            <td className="td">Coca Cola</td>
-            <td className="td">Bebidas</td>
-            <td
-              onClick={onClickMenu}
-              className="td flex justify-center relative"
-            >
-              <button className="text-3xl font-bold flex">&#8942;</button>
-              {/* <div>
-                <button className="mr-4">
-                  <img src="/delete.png" alt="Eliminar" />
-                </button>
-                <button>
-                  <img src="/edit.png" alt="Editar" />
-                </button>
-              </div> */}
-            </td>
-            <td className="td">
-              <Switch />
-            </td>
-          </tr>
+              </td>
+              <td className="td">
+                <Switch checked={item.disponible} onChange={onChange} />
+              </td>
+            </tr>
+          ))}
 
           <tr>
             <td className="td text-right" colSpan={5}>

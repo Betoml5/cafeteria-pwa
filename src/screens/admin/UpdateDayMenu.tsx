@@ -1,7 +1,7 @@
 import AdminProduct from "../../components/admin/productos/Product";
 
 const UpdateDayMenu = () => {
-  const handleSave = () => {};
+  // const handleSave = () => {};
 
   return (
     <div className="m-4">

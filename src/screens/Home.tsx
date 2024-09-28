@@ -1,12 +1,14 @@
-import CreateCategoriaForm from "../components/admin/forms/CreateCategoriaForm";
 import DayMenu from "../components/menu/DayMenu";
-import products from "../data.json";
-import categorias from "../categorias.json";
-import CategoriasTable from "../components/admin/categoria/CategoriasTable";
 import Hero from "../components/Hero";
 import Categories from "../components/menu/Categories";
-import Product from "../components/menu/Product";
+import useProductos from "../hooks/productos/useProductos";
+import { IProducto } from "../types";
 const Home = () => {
+  const products = useProductos();
+  console.log(products);
+
+  if (products.isLoading) return <div>Loading...</div>;
+
   return (
     <div>
       {/* <CreateCategoriaForm /> */}
@@ -16,7 +18,7 @@ const Home = () => {
         <Categories />
         <h1 className="text-center font-bold text-5xl my-4">Menú del dia</h1>
         <div className="flex gap-x-2 overflow-x-auto dayMenu snap-proximity overscroll-x-contain md:flex-wrap md:justify-center">
-          <DayMenu products={products} />
+          <DayMenu products={products.data as IProducto[]} />
         </div>
         <p className="text-3xl font-semibold mb-2 mt-4">Otros productos</p>
         <div className="flex flex-col">
@@ -88,11 +90,11 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex gap-x-2 overflow-x-auto">
-            <Product product={products[0]} />
+          <div className="flex gap-x-2 overflow-x-auto dayMenu">
+            {/* <Product product={products[0]} />
             <Product product={products[1]} />
             <Product product={products[2]} />
-            <Product product={products[3]} />
+            <Product product={products[3]} /> */}
           </div>
         </div>
       </div>

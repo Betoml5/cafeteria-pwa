@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { ICategoria } from "../../../types";
+import { FC } from "react";
 
-const CategoriasTable = ({ categorias }) => {
+interface Props {
+  categorias: ICategoria[];
+}
+
+const CategoriasTable: FC<Props> = ({ categorias }) => {
   return (
     <div className="flex flex-col ">
       <table className="table">
@@ -17,10 +23,10 @@ const CategoriasTable = ({ categorias }) => {
             <tr>
               <td className="td">
                 <Link className="underline" to={`/admin/categorias/${item.id}`}>
-                  {item.name}
+                  {item.nombre}
                 </Link>
               </td>
-              <td className="td">{item.products.length}</td>
+              <td className="td">{item.producto.length}</td>
               <td className="td">
                 <button className="mr-4">
                   <img className="w-8 h-8" src="/delete.png" alt="Eliminar" />

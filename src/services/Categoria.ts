@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "../lib/api";
+import { ICategoria } from "../types";
 
 class CategoriaService {
-  static async get() {
+  static async get(): Promise<ICategoria[]> {
     try {
       const response = await api.get("/categorias");
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 
@@ -14,8 +16,8 @@ class CategoriaService {
     try {
       const response = await api.post("/categorias", data);
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 
@@ -23,8 +25,8 @@ class CategoriaService {
     try {
       const response = await api.put(`/categorias/${id}`, data);
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 
@@ -32,8 +34,8 @@ class CategoriaService {
     try {
       const response = await api.delete(`/categorias/${id}`);
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 }

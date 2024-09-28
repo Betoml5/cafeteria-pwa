@@ -1,14 +1,15 @@
 import { FC } from "react";
 import Product from "./Product";
+import { IProducto } from "../../types";
 
 interface Props {
-  products: any;
+  products: IProducto[];
 }
 
 const DayMenu: FC<Props> = ({ products }) => {
   return (
     <>
-      {products.map((item: any) => (
+      {products.map((item) => (
         <Product product={item} />
       ))}
     </>

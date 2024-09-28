@@ -1,15 +1,20 @@
 import DayMenu from "../../components/menu/DayMenu";
-import products from "../../data.json";
-import categorias from "../../categorias.json";
-import Modal from "../../components/shared/Modal";
 import { useState } from "react";
-import CreateCategoriaForm from "../../components/admin/forms/CreateCategoriaForm";
 import ProductsTable from "../../components/admin/productos/ProductsTable";
 import { Link } from "react-router-dom";
 import CategoriasTable from "../../components/admin/categoria/CategoriasTable";
 import SelectedModal from "../../components/admin/SelectedModal";
+import useProductos from "../../hooks/productos/useProductos";
+import { ICategoria, IProducto } from "../../types";
+import useCategorias from "../../hooks/categorias/useCategorias";
 const Dashboard = () => {
   const [selectedModal, setSelectedModal] = useState("");
+  const productos = useProductos();
+  const categorias = useCategorias();
+
+  if (productos.isLoading || categorias.isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="grid grid-cols-12 ">
@@ -26,16 +31,16 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="flex gap-x-2 overflow-x-auto dayMenu mx-2">
-          <DayMenu products={products} />
+          <DayMenu products={productos.data as IProducto[]} />
         </div>
       </div>
       <div className="col-span-full p-4 lg:col-span-8">
         <p className="text-2xl mb-2">Productos</p>
-        <ProductsTable products={products} />
+        <ProductsTable productos={productos.data as IProducto[]} />
       </div>
       <div className=" col-span-full  p-4 lg:col-span-4">
         <p className="text-2xl mb-2">Categorias</p>
-        <CategoriasTable categorias={categorias} />
+        <CategoriasTable categorias={categorias.data as ICategoria[]} />
       </div>
     </div>
   );

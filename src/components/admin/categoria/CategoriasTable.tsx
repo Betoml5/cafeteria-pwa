@@ -1,14 +1,39 @@
 import { Link } from "react-router-dom";
 import { ICategoria } from "../../../types";
-import { FC } from "react";
+import { FC, useMemo, useState } from "react";
 
 interface Props {
   categorias: ICategoria[];
 }
 
 const CategoriasTable: FC<Props> = ({ categorias }) => {
+  const [search, setSearch] = useState("");
+  const filteredCategorias = useMemo(() => {
+    if (search === "") {
+      return categorias;
+    } else {
+      return categorias.filter((item) =>
+        item.nombre.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+  }, [search, categorias]);
   return (
-    <div className="flex flex-col ">
+    <div className="overflow-x-auto">
+      <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
+        <div className="relative mb-4 lg:mb-0">
+          <img
+            src="/search.svg"
+            alt="Buscar productos"
+            className="absolute left-4 top-1/2 -translate-y-1/2"
+          />
+          <input
+            type="text"
+            className="input text-black pl-10"
+            placeholder="Buscar productos"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -19,7 +44,16 @@ const CategoriasTable: FC<Props> = ({ categorias }) => {
         </thead>
 
         <tbody>
-          {categorias.map((item) => (
+          {filteredCategorias.length === 0 && (
+            <tr>
+              <td className="td text-center" colSpan={3}>
+                <p className="text-center">
+                  No hay categorias que coincidan con la búsqueda
+                </p>
+              </td>
+            </tr>
+          )}
+          {filteredCategorias.map((item) => (
             <tr>
               <td className="td">
                 <Link className="underline" to={`/admin/categorias/${item.id}`}>

@@ -10,4 +10,5 @@ export interface ICategoria {
   productos: Producto[];
   id: number;
   nombre: string;
+  icono: string;
 }

@@ -54,8 +54,17 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
             placeholder="Nombre de la categoría"
             {...register("nombre", { required: true })}
           />
+          {errors.nombre && (
+            <p className="text-red-500">Este campo es requerido</p>
+          )}
         </div>
-        <img src="/icon.png" alt="Agregar categoría" className="mt-4" />
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Vista previa del icono"
+            className="mt-4 w-32 h-32 object-cover"
+          />
+        )}
 
         <input
           className="my-4"
@@ -65,6 +74,9 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
           {...register("icono", { required: true })}
           onChange={handleImageChange}
         />
+        {errors.icono && (
+          <p className="text-red-500 mt-2">Este campo es requerido</p>
+        )}
         <div className="flex justify-center  mt-10">
           <button className="btn mr-2">Guardar</button>
           <button className="btn bg-gray-500">Cancelar</button>

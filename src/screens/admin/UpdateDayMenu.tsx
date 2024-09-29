@@ -1,6 +1,5 @@
 import AdminProduct from "../../components/admin/productos/Product";
 import useProductos from "../../hooks/productos/useProductos";
-import productosMock from "../../data.json";
 const UpdateDayMenu = () => {
   // const handleSave = () => {};
   const productos = useProductos();
@@ -17,8 +16,8 @@ const UpdateDayMenu = () => {
       </div>
 
       <div className="flex overflow-auto">
-        <AdminProduct producto={productosMock[0]} />
-        <AdminProduct producto={productosMock[1]} />
+        {/* <AdminProduct producto={productosMock[0]} /> */}
+        {/* <AdminProduct producto={productosMock[1]} /> */}
       </div>
       <p className="text-2xl font-semibold">Catalogo</p>
       <div className="flex overflow-x-auto">

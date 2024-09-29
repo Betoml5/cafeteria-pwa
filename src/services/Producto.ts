@@ -42,7 +42,7 @@ class ProductoService {
   static async updateIsAvaliable(id: string | number, isAvaliable: any) {
     try {
       const response = await api.get(
-        `/productos/disponible?id=${id}&isAvaliable=${isAvaliable}`
+        `/productos/disponble?id=${id}&disponible=${isAvaliable}`
       );
       return response.data;
     } catch (error: any) {

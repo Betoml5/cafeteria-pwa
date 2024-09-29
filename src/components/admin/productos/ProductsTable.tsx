@@ -6,6 +6,7 @@ import Modal from "../../shared/Modal";
 import UpdateProductoForm from "../forms/UpdateProductoForm";
 import DeleteProductoForm from "../forms/DeleteProductoForm";
 import { MODALS_NAMES } from "../../../constants";
+import useProductosMutation from "../../../hooks/productos/useProductosMutation";
 
 interface Props {
   productos: IProducto[];
@@ -20,9 +21,14 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
   const [selectedProduct, setSelectedProduct] = useState<IProducto | null>(
     null
   );
+  const { updateIsAvaliableMutation } = useProductosMutation();
 
-  const onChange = (e: any) => {
-    console.log(e);
+  const onChange = (e: any, id: string | number) => {
+    console.log(e.target.checked);
+    updateIsAvaliableMutation.mutate({
+      id,
+      isAvaliable: e.target.checked,
+    });
   };
 
   const filteredProducts = useMemo(() => {
@@ -154,7 +160,10 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
                 </div>
               </td>
               <td className="td">
-                <Switch checked={item.disponible} onChange={onChange} />
+                <Switch
+                  checked={item.disponible}
+                  onChange={(e) => onChange(e, item.id)}
+                />
               </td>
             </tr>
           ))}

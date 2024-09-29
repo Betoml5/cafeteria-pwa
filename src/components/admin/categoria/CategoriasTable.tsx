@@ -24,6 +24,7 @@ const CategoriasTable: FC<Props> = ({
   const [selectedCategoria, setSelectedCategoria] = useState<ICategoria | null>(
     null
   );
+
   const filteredCategorias = useMemo(() => {
     if (search === "") {
       return categorias;

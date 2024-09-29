@@ -3,8 +3,6 @@ import Home from "./screens/Home";
 import Dashboard from "./screens/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
 import MainLayout from "./layouts/MainLayout";
-import CreateCategoriaForm from "./components/admin/forms/CreateCategoriaForm";
-import UpdateCategoriaForm from "./components/admin/forms/UpdateCategoriaForm";
 import UpdateDayMenu from "./screens/admin/UpdateDayMenu";
 function App() {
   return (
@@ -15,15 +13,7 @@ function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="" element={<Dashboard />} index />
         {/* <Route path="/admin/categorias/agregar" element={<ProtectedRoute />} /> */}
-        <Route
-          path="/admin/categorias/agregar"
-          element={<CreateCategoriaForm />}
-        />
-        <Route
-          path="/admin/categorias/editar"
-          element={<UpdateCategoriaForm />}
-        />
-        <Route path="/admin/categorias/:id" element={<UpdateCategoriaForm />} />
+
         <Route path="/admin/actualizar-menu" element={<UpdateDayMenu />} />
       </Route>
     </Routes>

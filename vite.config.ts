@@ -7,10 +7,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      base: "/",
+      mode: "development",
       registerType: "autoUpdate",
       injectRegister: "auto",
       devOptions: {
         enabled: true,
+        type: "module",
       },
       workbox: {
         //cacheConfig
@@ -22,38 +25,19 @@ export default defineConfig({
         name: "Cafetería TEC",
         short_name: "Cafetería TEC",
         description: "Una aplicación web para la Cafetería TEC",
+        theme_color: "#ffffff",
         icons: [
           {
-            src: "/android-chrome-192x192.png",
+            src: "black-logo.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "favicon",
           },
           {
-            src: "/android-chrome-512x512.png",
+            src: "black-logo.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "favicon",
-          },
-          {
-            src: "/apple-touch-icon.png",
-            sizes: "180x180",
-            type: "image/png",
-            purpose: "apple touch icon",
-          },
-          {
-            src: "/maskable_icon.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
           },
         ],
-        theme_color: "#171717",
-        background_color: "#f0e7db",
-        display: "standalone",
-        scope: "/",
-        start_url: "/",
-        orientation: "portrait",
       },
     }),
   ],

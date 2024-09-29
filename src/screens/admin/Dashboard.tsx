@@ -8,13 +8,18 @@ import useProductos from "../../hooks/productos/useProductos";
 import { ICategoria, IProducto } from "../../types";
 import useCategorias from "../../hooks/categorias/useCategorias";
 import { MODALS_NAMES } from "../../constants";
+import Loader from "../../components/shared/Loader";
 const Dashboard = () => {
   const [selectedModal, setSelectedModal] = useState("");
   const productos = useProductos();
   const categorias = useCategorias();
 
   if (productos.isLoading || categorias.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   return (

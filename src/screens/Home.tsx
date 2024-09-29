@@ -3,11 +3,17 @@ import Hero from "../components/Hero";
 import Categories from "../components/menu/Categories";
 import useProductos from "../hooks/productos/useProductos";
 import { IProducto } from "../types";
+import Loader from "../components/shared/Loader";
 const Home = () => {
   const products = useProductos();
   console.log(products);
 
-  if (products.isLoading) return <div>Loading...</div>;
+  if (products.isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
 
   return (
     <div>

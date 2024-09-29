@@ -7,7 +7,7 @@ export interface IProducto {
 }
 
 export interface ICategoria {
+  productos: Producto[];
   id: number;
   nombre: string;
-  producto: IProducto[];
 }

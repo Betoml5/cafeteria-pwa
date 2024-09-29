@@ -60,7 +60,7 @@ const CategoriasTable: FC<Props> = ({ categorias }) => {
                   {item.nombre}
                 </Link>
               </td>
-              <td className="td">{item.producto.length}</td>
+              <td className="td">{item.productos.length}</td>
               <td className="td">
                 <button className="mr-4">
                   <img className="w-8 h-8" src="/delete.png" alt="Eliminar" />

@@ -5,8 +5,8 @@ const useSelectedProduct = () => {
   const { producto, setProducto } = useContext(ProductContext);
 
   return {
-    producto,
-    setProducto,
+    selectedProduct: producto,
+    setSelectedProduct: setProducto,
   };
 };
 

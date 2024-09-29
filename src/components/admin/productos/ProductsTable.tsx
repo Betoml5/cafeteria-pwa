@@ -5,6 +5,7 @@ import { IProducto } from "../../../types";
 import Modal from "../../shared/Modal";
 import UpdateProductoForm from "../forms/UpdateProductoForm";
 import DeleteProductoForm from "../forms/DeleteProductoForm";
+import { MODALS_NAMES } from "../../../constants";
 
 interface Props {
   productos: IProducto[];
@@ -15,6 +16,7 @@ interface Props {
 
 const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
   const [filter, setFilter] = useState("");
+  const [action, setAction] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<IProducto | null>(
     null
   );
@@ -33,20 +35,24 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
 
   return (
     <div className="overflow-x-auto">
-      <Modal
-        isOpen={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        title="Editar producto"
-      >
-        <UpdateProductoForm producto={selectedProduct as IProducto} />
-      </Modal>
-      <Modal
-        isOpen={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        title="Eliminar producto"
-      >
-        <DeleteProductoForm producto={selectedProduct as IProducto} />
-      </Modal>
+      {action === MODALS_NAMES.EDIT_PRODUCT && (
+        <Modal
+          isOpen={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          title="Editar producto"
+        >
+          <UpdateProductoForm producto={selectedProduct as IProducto} />
+        </Modal>
+      )}
+      {action === MODALS_NAMES.DELETE_PRODUCT && (
+        <Modal
+          isOpen={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          title="Eliminar producto"
+        >
+          <DeleteProductoForm producto={selectedProduct as IProducto} />
+        </Modal>
+      )}
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
           <img
@@ -128,6 +134,7 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
                     onClick={() => {
                       onDelete();
                       setSelectedProduct(item);
+                      setAction(MODALS_NAMES.DELETE_PRODUCT);
                     }}
                   >
                     <img src="/delete.png" alt="Eliminar" />
@@ -136,6 +143,7 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
                     onClick={() => {
                       onEdit();
                       setSelectedProduct(item);
+                      setAction(MODALS_NAMES.EDIT_PRODUCT);
                     }}
                   >
                     <img src="/edit.png" alt="Editar" />

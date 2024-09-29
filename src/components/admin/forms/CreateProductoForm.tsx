@@ -12,7 +12,7 @@ interface FormValues {
 
 const CreateProductoForm = () => {
   const categorias = useCategorias();
-  const mutation = useProductosMutation();
+  const { createMutation } = useProductosMutation();
 
   const {
     register,
@@ -27,12 +27,12 @@ const CreateProductoForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    mutation.createMutation.mutate(data);
+    createMutation.mutate(data);
   };
 
   useEffect(() => {
-    if (mutation.createMutation.isSuccess) reset();
-  }, [mutation.createMutation.isSuccess, reset]);
+    if (createMutation.isSuccess) reset();
+  }, [createMutation.isSuccess, reset]);
 
   return (
     <div>
@@ -90,13 +90,14 @@ const CreateProductoForm = () => {
           <label className="label m-0" htmlFor="disponible">
             Disponible
           </label>
-          <input
-            type="checkbox"
-            id="disponible"
-            {...register("disponible", { required: true })}
-          />
+          <input type="checkbox" id="disponible" {...register("disponible")} />
         </div>
-        <button className="btn w-full">Crear</button>
+        <button
+          className={`btn w-full ${createMutation.isLoading && "opacity-90"}`}
+          disabled={createMutation.isLoading}
+        >
+          {createMutation.isLoading ? "Enviando..." : "Agregar"}
+        </button>
       </form>
     </div>
   );

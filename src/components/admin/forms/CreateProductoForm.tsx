@@ -1,24 +1,40 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
-import Switch from "../../shared/Switch";
+import useProductosMutation from "../../../hooks/productos/useProductosMutation";
+import { useEffect } from "react";
 
 interface FormValues {
   nombre: string;
   precio: number;
-  categoriaId: number;
+  IdCategoria: number;
   disponible: boolean;
 }
 
 const CreateProductoForm = () => {
   const categorias = useCategorias();
+  const mutation = useProductosMutation();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+    reset,
+  } = useForm<FormValues>({
+    defaultValues: {
+      nombre: "",
+      precio: 0,
+      IdCategoria: 0,
+      disponible: true,
+    },
+  });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {};
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    mutation.createMutation.mutate(data);
+  };
+
+  useEffect(() => {
+    if (mutation.createMutation.isSuccess) reset();
+  }, [mutation.createMutation.isSuccess, reset]);
 
   return (
     <div>
@@ -56,10 +72,10 @@ const CreateProductoForm = () => {
             Categoria
           </label>
           <select
-            {...register("categoriaId", { required: true })}
+            {...register("IdCategoria", { required: true })}
             className="input"
-            name="categoria"
             id="categoria"
+            defaultValue=""
           >
             <option value="">Seleccionar</option>
             {categorias.data?.map((item) => (
@@ -68,7 +84,7 @@ const CreateProductoForm = () => {
               </option>
             ))}
           </select>
-          {errors.categoriaId && (
+          {errors.IdCategoria && (
             <p className="text-red-500">Este campo es requerido</p>
           )}
         </div>

@@ -5,6 +5,7 @@ import { FC, useEffect } from "react";
 import { IProducto } from "../../../types";
 
 interface FormValues {
+  id: number;
   nombre: string;
   precio: number;
   IdCategoria: number;
@@ -23,9 +24,9 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormValues>({
     defaultValues: {
+      id: producto?.id,
       nombre: producto?.nombre,
       IdCategoria: producto?.idCategoria,
       precio: producto?.precio,
@@ -36,12 +37,9 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
   console.log(producto);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log(data);
     mutation.updateMutation.mutate(data);
   };
-
-  useEffect(() => {
-    if (mutation.updateMutation.isSuccess) reset();
-  }, [mutation.updateMutation.isSuccess, reset]);
 
   if (producto === null) return null;
 
@@ -107,7 +105,9 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
             {...register("disponible", { required: true })}
           />
         </div>
-        <button className="btn w-full">Crear</button>
+        <button className="btn w-full">
+          {mutation.updateMutation.isLoading ? "Actualizando..." : "Actualizar"}
+        </button>
       </form>
     </div>
   );

@@ -20,7 +20,7 @@ const useProductosMutation = () => {
     mutationKey: ["productos"],
     mutationFn: ProductoService.update,
     onSuccess: () => {
-      toast("Producto creado");
+      toast("Producto actualizado");
       client.invalidateQueries(["productos"]);
     },
     onError: () => {

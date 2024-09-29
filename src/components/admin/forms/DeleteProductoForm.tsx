@@ -15,16 +15,17 @@ const DeleteProductoForm: FC<Props> = ({ producto }) => {
 
   return (
     <div>
-      <h1>
+      <h1 className="text-center">
         ¿Estas seguro que deseas eliminar{" "}
         <span className="font-semibold">{producto.nombre}</span>?
       </h1>
       <div className="flex justify-center gap-x-4 my-4">
-        <button className="btn bg-red-500" onClick={handleClick}>
-          Aceptar
-        </button>
-        <button className="btn bg-blue-500" onClick={() => {}}>
-          Cancelar
+        <button
+          className="btn bg-red-500"
+          onClick={handleClick}
+          disabled={deleteMutation.isLoading}
+        >
+          {deleteMutation.isLoading ? "Eliminando..." : "Aceptar"}
         </button>
       </div>
     </div>

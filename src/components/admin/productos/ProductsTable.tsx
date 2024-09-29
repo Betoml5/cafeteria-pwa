@@ -4,14 +4,16 @@ import Switch from "../../shared/Switch";
 import { IProducto } from "../../../types";
 import Modal from "../../shared/Modal";
 import UpdateProductoForm from "../forms/UpdateProductoForm";
+import DeleteProductoForm from "../forms/DeleteProductoForm";
 
 interface Props {
   productos: IProducto[];
   onAdd: () => void;
   onEdit: () => void;
+  onDelete: () => void;
 }
 
-const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit }) => {
+const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
   const [filter, setFilter] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<IProducto | null>(
     null
@@ -22,13 +24,11 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit }) => {
   };
 
   const filteredProducts = useMemo(() => {
-    if (filter === "") {
-      return productos;
-    } else {
-      return productos.filter((item) =>
-        item.nombre.toLowerCase().includes(filter.toLowerCase())
-      );
-    }
+    if (filter === "") return productos;
+
+    return productos.filter((item) =>
+      item.nombre.toLowerCase().includes(filter.toLowerCase())
+    );
   }, [filter, productos]);
 
   return (
@@ -39,6 +39,13 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit }) => {
         title="Editar producto"
       >
         <UpdateProductoForm producto={selectedProduct as IProducto} />
+      </Modal>
+      <Modal
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        title="Eliminar producto"
+      >
+        <DeleteProductoForm producto={selectedProduct as IProducto} />
       </Modal>
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
@@ -117,7 +124,12 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit }) => {
               <td className="td">{item.idCategoria}</td>
               <td className="td">
                 <div>
-                  <button className="mr-4">
+                  <button
+                    onClick={() => {
+                      onDelete();
+                      setSelectedProduct(item);
+                    }}
+                  >
                     <img src="/delete.png" alt="Eliminar" />
                   </button>
                   <button

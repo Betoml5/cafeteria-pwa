@@ -30,7 +30,7 @@ class ProductoService {
     }
   }
 
-  static async delete(id: string) {
+  static async delete(id: string | number) {
     try {
       const response = await api.delete(`/productos/${id}`);
       return response.data;

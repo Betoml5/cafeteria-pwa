@@ -18,7 +18,6 @@ const SelectedModal: FC<Props> = ({ selectedModal, isOpen, onClose }) => {
         </Modal>
       )}
 
-      {selectedModal === MODALS_NAMES.DELETE_PRODUCT && <CreateProductoForm />}
       {selectedModal === MODALS_NAMES.CREATE_CATEGORIA && (
         <CreateProductoForm />
       )}

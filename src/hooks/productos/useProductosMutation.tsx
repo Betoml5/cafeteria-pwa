@@ -28,9 +28,22 @@ const useProductosMutation = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationKey: ["productos"],
+    mutationFn: ProductoService.delete,
+    onSuccess: () => {
+      toast("Producto eliminado");
+      client.invalidateQueries(["productos"]);
+    },
+    onError: () => {
+      toast.error("Error al eliminar producto");
+    },
+  });
+
   return {
     createMutation,
     updateMutation,
+    deleteMutation,
   };
 };
 

@@ -50,7 +50,10 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
           onClose={() => setSelectedProduct(null)}
           title="Eliminar producto"
         >
-          <DeleteProductoForm producto={selectedProduct as IProducto} />
+          <DeleteProductoForm
+            setSelectedProduct={setSelectedProduct}
+            producto={selectedProduct as IProducto}
+          />
         </Modal>
       )}
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">

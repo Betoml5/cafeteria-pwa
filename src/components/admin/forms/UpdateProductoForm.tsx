@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { IProducto } from "../../../types";
 
 interface FormValues {

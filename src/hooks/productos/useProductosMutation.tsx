@@ -16,9 +16,21 @@ const useProductosMutation = () => {
       toast.error("Error al crear producto");
     },
   });
+  const updateMutation = useMutation({
+    mutationKey: ["productos"],
+    mutationFn: ProductoService.update,
+    onSuccess: () => {
+      toast("Producto creado");
+      client.invalidateQueries(["productos"]);
+    },
+    onError: () => {
+      toast.error("Error al crear producto");
+    },
+  });
 
   return {
     createMutation,
+    updateMutation,
   };
 };
 

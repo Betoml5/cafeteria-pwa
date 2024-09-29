@@ -1,7 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { IProducto } from "../../../types";
 
 interface FormValues {
   nombre: string;
@@ -10,7 +11,11 @@ interface FormValues {
   disponible: boolean;
 }
 
-const CreateProductoForm = () => {
+interface Props {
+  producto: IProducto;
+}
+
+const UpdateProductoForm: FC<Props> = ({ producto }) => {
   const categorias = useCategorias();
   const mutation = useProductosMutation();
 
@@ -21,18 +26,24 @@ const CreateProductoForm = () => {
     reset,
   } = useForm<FormValues>({
     defaultValues: {
-      nombre: "",
-      disponible: true,
+      nombre: producto?.nombre,
+      IdCategoria: producto?.idCategoria,
+      precio: producto?.precio,
+      disponible: producto?.disponible,
     },
   });
 
+  console.log(producto);
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    mutation.createMutation.mutate(data);
+    mutation.updateMutation.mutate(data);
   };
 
   useEffect(() => {
-    if (mutation.createMutation.isSuccess) reset();
-  }, [mutation.createMutation.isSuccess, reset]);
+    if (mutation.updateMutation.isSuccess) reset();
+  }, [mutation.updateMutation.isSuccess, reset]);
+
+  if (producto === null) return null;
 
   return (
     <div>
@@ -102,4 +113,4 @@ const CreateProductoForm = () => {
   );
 };
 
-export default CreateProductoForm;
+export default UpdateProductoForm;

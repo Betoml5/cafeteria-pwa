@@ -2,14 +2,20 @@
 import { FC, useMemo, useState } from "react";
 import Switch from "../../shared/Switch";
 import { IProducto } from "../../../types";
+import Modal from "../../shared/Modal";
+import UpdateProductoForm from "../forms/UpdateProductoForm";
 
 interface Props {
   productos: IProducto[];
   onAdd: () => void;
+  onEdit: () => void;
 }
 
-const ProductsTable: FC<Props> = ({ productos, onAdd }) => {
+const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit }) => {
   const [filter, setFilter] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<IProducto | null>(
+    null
+  );
 
   const onChange = (e: any) => {
     console.log(e);
@@ -25,10 +31,15 @@ const ProductsTable: FC<Props> = ({ productos, onAdd }) => {
     }
   }, [filter, productos]);
 
-  console.log(filteredProducts);
-
   return (
     <div className="overflow-x-auto">
+      <Modal
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        title="Editar producto"
+      >
+        <UpdateProductoForm producto={selectedProduct as IProducto} />
+      </Modal>
       <div className="flex flex-col mb-4 lg:flex-row lg:items-center lg:gap-x-4">
         <div className="relative mb-4 lg:mb-0">
           <img
@@ -109,7 +120,12 @@ const ProductsTable: FC<Props> = ({ productos, onAdd }) => {
                   <button className="mr-4">
                     <img src="/delete.png" alt="Eliminar" />
                   </button>
-                  <button>
+                  <button
+                    onClick={() => {
+                      onEdit();
+                      setSelectedProduct(item);
+                    }}
+                  >
                     <img src="/edit.png" alt="Editar" />
                   </button>
                 </div>

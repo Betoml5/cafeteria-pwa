@@ -21,9 +21,9 @@ class ProductoService {
     }
   }
 
-  static async update(id: string, data: any) {
+  static async update(data: any) {
     try {
-      const response = await api.put(`/productos/${id}`, data);
+      const response = await api.put(`/productos`, data);
       return response.data;
     } catch (error: any) {
       throw new Error(error);

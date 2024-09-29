@@ -35,7 +35,7 @@ html {
 }
 
 .label {
-  @apply text-2xl font-bold mb-2;
+  @apply text-lg font-bold my-2;
 }
 
 .btn {

@@ -40,6 +40,7 @@ const Dashboard = () => {
         <ProductsTable
           productos={productos.data as IProducto[]}
           onAdd={() => setSelectedModal(MODALS_NAMES.ADD_PRODUCT)}
+          onEdit={() => setSelectedModal(MODALS_NAMES.EDIT_PRODUCT)}
         />
       </div>
       <div className=" col-span-full  p-4 lg:col-span-4">

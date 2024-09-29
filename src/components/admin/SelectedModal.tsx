@@ -2,6 +2,7 @@ import { FC } from "react";
 import { MODALS_NAMES } from "../../constants";
 import CreateProductoForm from "./forms/CreateProductoForm";
 import Modal from "../shared/Modal";
+import CreateCategoriaForm from "./forms/CreateCategoriaForm";
 
 interface Props {
   selectedModal: string;
@@ -19,12 +20,8 @@ const SelectedModal: FC<Props> = ({ selectedModal, isOpen, onClose }) => {
       )}
 
       {selectedModal === MODALS_NAMES.CREATE_CATEGORIA && (
-        <CreateProductoForm />
-      )}
-      {selectedModal === MODALS_NAMES.EDIT_CATEGORIA && <CreateProductoForm />}
-      {selectedModal === MODALS_NAMES.DELETE_CATEGORIA && (
-        <Modal isOpen={isOpen} onClose={onClose} title="Eliminar">
-          <div></div>
+        <Modal isOpen={isOpen} onClose={onClose} title="Agregar categoría">
+          <CreateCategoriaForm />
         </Modal>
       )}
     </>

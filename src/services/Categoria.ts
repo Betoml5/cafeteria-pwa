@@ -21,16 +21,16 @@ class CategoriaService {
     }
   }
 
-  static async update(id: string, data: any) {
+  static async update(data: any) {
     try {
-      const response = await api.put(`/categorias/${id}`, data);
+      const response = await api.put(`/categorias/`, data);
       return response.data;
     } catch (error: any) {
       throw new Error(error);
     }
   }
 
-  static async delete(id: string) {
+  static async delete(id: string | number) {
     try {
       const response = await api.delete(`/categorias/${id}`);
       return response.data;

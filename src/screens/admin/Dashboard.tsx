@@ -46,7 +46,12 @@ const Dashboard = () => {
       </div>
       <div className=" col-span-full  p-4 lg:col-span-4">
         <p className="text-2xl mb-2">Categorias</p>
-        <CategoriasTable categorias={categorias.data as ICategoria[]} />
+        <CategoriasTable
+          onAdd={() => setSelectedModal(MODALS_NAMES.CREATE_CATEGORIA)}
+          onEdit={() => setSelectedModal(MODALS_NAMES.EDIT_CATEGORIA)}
+          onDelete={() => setSelectedModal(MODALS_NAMES.DELETE_CATEGORIA)}
+          categorias={categorias.data as ICategoria[]}
+        />
       </div>
     </div>
   );

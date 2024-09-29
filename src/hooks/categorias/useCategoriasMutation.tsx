@@ -17,8 +17,34 @@ const useCategoriasMutation = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationKey: ["categorias"],
+    mutationFn: CategoriaService.delete,
+    onSuccess: () => {
+      toast("Producto eliminado");
+      client.invalidateQueries(["categorias"]);
+    },
+    onError: () => {
+      toast.error("Error al eliminar producto");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationKey: ["categorias"],
+    mutationFn: CategoriaService.update,
+    onSuccess: () => {
+      toast("Producto actualizado");
+      client.invalidateQueries(["categorias"]);
+    },
+    onError: () => {
+      toast.error("Error al crear producto");
+    },
+  });
+
   return {
     createMutation,
+    deleteMutation,
+    updateMutation,
   };
 };
 

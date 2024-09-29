@@ -1,8 +1,48 @@
-const UpdateCategoriaForm = () => {
+import { FC, useState } from "react";
+import { ICategoria } from "../../../types";
+import { useForm } from "react-hook-form";
+
+interface Props {
+  categoria: ICategoria;
+}
+
+interface FormValues {
+  nombre: string;
+  icono: string;
+}
+
+const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      nombre: categoria?.nombre,
+      icono: categoria?.icono,
+    },
+  });
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Verificamos si hay un archivo seleccionado
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImagePreview(imageUrl); // Guardamos la URL de la imagen
+    }
+  };
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+  };
+
   return (
     <div className="mx-4 my-10 max-w-xl md:mx-auto">
       <h1 className="text-center font-bold text-5xl mb-10">Editar categoría</h1>
-      <form className="flex flex-col bg-secondary-color border border-gray-500/50 p-4 rounded-lg">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col rounded-lg"
+      >
         <div className="form-group">
           {" "}
           <label className="label" htmlFor="name">
@@ -12,6 +52,7 @@ const UpdateCategoriaForm = () => {
             className="input"
             type="text"
             placeholder="Nombre de la categoría"
+            {...register("nombre", { required: true })}
           />
         </div>
         <img src="/icon.png" alt="Agregar categoría" className="mt-4" />
@@ -21,6 +62,8 @@ const UpdateCategoriaForm = () => {
           type="file"
           src="/add.png"
           alt="Agregar categoría"
+          {...register("icono", { required: true })}
+          onChange={handleImageChange}
         />
         <div className="flex justify-center  mt-10">
           <button className="btn mr-2">Guardar</button>

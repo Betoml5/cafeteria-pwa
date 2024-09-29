@@ -38,6 +38,17 @@ class ProductoService {
       throw new Error(error);
     }
   }
+
+  static async updateIsAvaliable(id: string | number, isAvaliable: any) {
+    try {
+      const response = await api.get(
+        `/productos/disponible?id=${id}&isAvaliable=${isAvaliable}`
+      );
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
 }
 
 export default ProductoService;

@@ -40,10 +40,29 @@ const useProductosMutation = () => {
     },
   });
 
+  const updateIsAvaliableMutation = useMutation({
+    mutationKey: ["productos"],
+    mutationFn: ({
+      id,
+      isAvaliable,
+    }: {
+      id: string | number;
+      isAvaliable: boolean;
+    }) => ProductoService.updateIsAvaliable(id, isAvaliable),
+    onSuccess: () => {
+      toast("Producto actualizado");
+      client.invalidateQueries(["productos"]);
+    },
+    onError: () => {
+      toast.error("Error al crear producto");
+    },
+  });
+
   return {
     createMutation,
     updateMutation,
     deleteMutation,
+    updateIsAvaliableMutation,
   };
 };
 

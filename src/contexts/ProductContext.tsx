@@ -1,7 +1,15 @@
 import { createContext, useState } from "react";
 import { IProducto } from "../types";
 
-export const ProductContext = createContext({});
+interface IProductContext {
+  producto: IProducto | null;
+  setProducto: (producto: IProducto | null) => void;
+}
+
+export const ProductContext = createContext<IProductContext>({
+  producto: null,
+  setProducto: () => {},
+});
 
 const ProductContextProvider = ({
   children,

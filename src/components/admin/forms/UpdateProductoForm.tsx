@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { IProducto } from "../../../types";
+import convertToBase64 from "../../../utils/convertToBase64";
 
 interface FormValues {
   id: number;
@@ -10,6 +11,7 @@ interface FormValues {
   precio: number;
   IdCategoria: number;
   disponible: boolean;
+  ImagenBase64: File[];
 }
 
 interface Props {
@@ -19,6 +21,8 @@ interface Props {
 const UpdateProductoForm: FC<Props> = ({ producto }) => {
   const categorias = useCategorias();
   const mutation = useProductosMutation();
+
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const {
     register,
@@ -34,12 +38,30 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
     },
   });
 
-  console.log(producto);
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
-    mutation.updateMutation.mutate(data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const file = data.ImagenBase64[0];
+    const image = await convertToBase64(file);
+    const dto = {
+      ...data,
+      ImagenBase64: image,
+    };
+    mutation.updateMutation.mutate(dto);
   };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Verificamos si hay un archivo seleccionado
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImagePreview(imageUrl); // Guardamos la URL de la imagen
+    }
+  };
+
+  useEffect(() => {
+    if (!producto) return;
+    setImagePreview(
+      `https://pwabrd.labsystec.net/producto/${producto?.id}.webp`
+    );
+  }, [producto]);
 
   if (producto === null) return null;
 
@@ -105,6 +127,24 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
             {...register("disponible", { required: true })}
           />
         </div>
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Vista previa del icono"
+            className="mt-4 w-32 h-32 object-cover my-4"
+          />
+        )}
+        <input
+          type="file"
+          id="ImagenBase64"
+          {...register("ImagenBase64")}
+          className="my-4"
+          onChange={handleImageChange}
+          accept="image/jpeg, image/png"
+        />
+        {errors.ImagenBase64 && (
+          <p className="text-red-500">Este campo es requerido</p>
+        )}
         <button className="btn w-full">
           {mutation.updateMutation.isLoading ? "Actualizando..." : "Actualizar"}
         </button>

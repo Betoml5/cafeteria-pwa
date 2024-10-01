@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import convertToBase64 from "../../../utils/convertToBase64";
 
 interface FormValues {
@@ -15,6 +15,7 @@ interface FormValues {
 const CreateProductoForm = () => {
   const categorias = useCategorias();
   const { createMutation } = useProductosMutation();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const {
     register,
@@ -36,6 +37,14 @@ const CreateProductoForm = () => {
       ImagenBase64: image,
     };
     createMutation.mutate(dto);
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Verificamos si hay un archivo seleccionado
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImagePreview(imageUrl); // Guardamos la URL de la imagen
+    }
   };
 
   useEffect(() => {
@@ -100,6 +109,13 @@ const CreateProductoForm = () => {
           </label>
           <input type="checkbox" id="disponible" {...register("disponible")} />
         </div>
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Vista previa del icono"
+            className="mt-4 w-32 h-32 object-cover"
+          />
+        )}
         <div className="form-group my-4">
           <label className="label m-0" htmlFor="ImagenBase64">
             Imagen
@@ -108,6 +124,8 @@ const CreateProductoForm = () => {
             type="file"
             id="ImagenBase64"
             {...register("ImagenBase64", { required: true })}
+            onChange={handleImageChange}
+            accept="image/jpeg, image/png"
           />
           {errors.ImagenBase64 && (
             <p className="text-red-500">Este campo es requerido</p>

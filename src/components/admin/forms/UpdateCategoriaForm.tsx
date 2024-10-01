@@ -1,14 +1,17 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ICategoria } from "../../../types";
 import { useForm } from "react-hook-form";
+import useCategoriasMutation from "../../../hooks/categorias/useCategoriasMutation";
+import convertToBase64 from "../../../utils/convertToBase64";
 
 interface Props {
   categoria: ICategoria;
 }
 
 interface FormValues {
+  id: string | number;
   nombre: string;
-  icono: string;
+  imagenBase64: File[];
 }
 
 const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
@@ -20,10 +23,13 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
+      id: categoria?.id,
       nombre: categoria?.nombre,
-      icono: categoria?.icono,
     },
   });
+
+  const { updateMutation } = useCategoriasMutation();
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // Verificamos si hay un archivo seleccionado
     if (file) {
@@ -32,9 +38,21 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = async (data: FormValues) => {
+    const file = data.imagenBase64[0];
+    const image = await convertToBase64(file);
+    const dto = {
+      ...data,
+      imagenBase64: image,
+    };
+    updateMutation.mutate(dto);
   };
+
+  useEffect(() => {
+    setImagePreview(
+      `https://pwabrd.labsystec.net/categorias/${categoria?.id}.webp`
+    );
+  }, [categoria?.id]);
 
   return (
     <div className="mx-4 my-10 max-w-xl md:mx-auto">
@@ -71,10 +89,10 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
           type="file"
           src="/add.png"
           alt="Agregar categoría"
-          {...register("icono", { required: true })}
+          {...register("imagenBase64", { required: true })}
           onChange={handleImageChange}
         />
-        {errors.icono && (
+        {errors.imagenBase64 && (
           <p className="text-red-500 mt-2">Este campo es requerido</p>
         )}
         <div className="flex justify-center  mt-10">

@@ -2,12 +2,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
 import { useEffect } from "react";
+import convertToBase64 from "../../../utils/convertToBase64";
 
 interface FormValues {
   nombre: string;
   precio: number;
   IdCategoria: number;
   disponible: boolean;
+  ImagenBase64: File[];
 }
 
 const CreateProductoForm = () => {
@@ -26,8 +28,14 @@ const CreateProductoForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    createMutation.mutate(data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const file = data.ImagenBase64[0];
+    const image = await convertToBase64(file);
+    const dto = {
+      ...data,
+      ImagenBase64: image,
+    };
+    createMutation.mutate(dto);
   };
 
   useEffect(() => {
@@ -91,6 +99,19 @@ const CreateProductoForm = () => {
             Disponible
           </label>
           <input type="checkbox" id="disponible" {...register("disponible")} />
+        </div>
+        <div className="form-group my-4">
+          <label className="label m-0" htmlFor="ImagenBase64">
+            Imagen
+          </label>
+          <input
+            type="file"
+            id="ImagenBase64"
+            {...register("ImagenBase64", { required: true })}
+          />
+          {errors.ImagenBase64 && (
+            <p className="text-red-500">Este campo es requerido</p>
+          )}
         </div>
         <button
           className={`btn w-full ${createMutation.isLoading && "opacity-90"}`}

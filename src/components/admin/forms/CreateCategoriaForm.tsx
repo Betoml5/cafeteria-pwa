@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import useCategoriasMutation from "../../../hooks/categorias/useCategoriasMutation";
+import convertToBase64 from "../../../utils/convertToBase64";
 interface FormValues {
   nombre: string;
-  icono: string;
+  imagenBase64: File[];
 }
 
 const CreateCategoriaForm = () => {
@@ -15,8 +16,16 @@ const CreateCategoriaForm = () => {
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const { createMutation } = useCategoriasMutation();
+
+  const onSubmit = async (data: FormValues) => {
+    const file = data.imagenBase64[0];
+    const image = await convertToBase64(file);
+    const dto = {
+      imagenBase64: image,
+      nombre: data.nombre,
+    };
+    createMutation.mutate(dto);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,9 +65,10 @@ const CreateCategoriaForm = () => {
         <input
           className="my-4"
           type="file"
+          accept="image/jpeg, image/png"
           src="/add.png"
           alt="Agregar categoría"
-          {...register("icono", { required: true })}
+          {...register("imagenBase64", { required: true })}
           onChange={handleImageChange}
         />
         <div className="flex justify-center  mt-10">

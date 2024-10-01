@@ -136,7 +136,7 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
           {filteredProducts.map((item) => (
             <tr>
               <td className="td">{item.nombre}</td>
-              <td className="td">{item.idCategoria}</td>
+              <td className="td">{item.categoria.nombre}</td>
               <td className="td">
                 <div>
                   <button

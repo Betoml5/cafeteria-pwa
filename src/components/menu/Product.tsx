@@ -10,7 +10,7 @@ const Product: FC<Props> = ({ product }) => {
     <div className="flex flex-col  border border-gray-500/70 bg-secondary-color rounded-lg p-4 min-w-64 snap-center">
       <img
         className="w-24 h-24 self-center"
-        src="/dish.png"
+        src={`https://pwabrd.labsystec.net/producto/${product.id}.webp`}
         alt={product.nombre}
       />
       <h3 className="text-2xl">{product.nombre}</h3>

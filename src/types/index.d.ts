@@ -1,14 +1,13 @@
 export interface IProducto {
+  categoria: ICategoria;
   id: number;
-  idCategoria: number;
-  disponible: boolean;
   nombre: string;
   precio: number;
+  idCategoria: number;
+  disponible: boolean;
 }
-
 export interface ICategoria {
   productos: Producto[];
   id: number;
   nombre: string;
-  icono: string;
 }

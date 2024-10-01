@@ -18,6 +18,7 @@ interface Props {
 const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
   const [filter, setFilter] = useState("");
   const [action, setAction] = useState("");
+
   const [selectedProduct, setSelectedProduct] = useState<IProducto | null>(
     null
   );
@@ -34,8 +35,10 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
   const filteredProducts = useMemo(() => {
     if (filter === "") return productos;
 
-    return productos.filter((item) =>
-      item.nombre.toLowerCase().includes(filter.toLowerCase())
+    return productos.filter(
+      (item) =>
+        item.nombre.toLowerCase().includes(filter.toLowerCase()) ||
+        (item.disponible ? "disponible" : "agotado") === filter
     );
   }, [filter, productos]);
 
@@ -78,12 +81,7 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
         </div>
 
         <div>
-          <label
-            htmlFor="all"
-            onChange={() => {
-              console.log("object");
-            }}
-          >
+          <label htmlFor="all" onChange={() => setFilter("")}>
             <input
               type="checkbox"
               name="all"
@@ -91,24 +89,31 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
               className="sr-only peer"
             />
 
-            <span className="text-sm font-medium bg-primary-color px-4 py-2 text-white rounded-md">
+            <span
+              className={`text-sm font-medium  px-4 py-2 text-black rounded-md border border-black  ${
+                filter === ""
+                  ? "bg-primary-color text-white border-white"
+                  : "bg-white"
+              }`}
+            >
               Todos
             </span>
           </label>
-          <label
-            htmlFor="all"
-            onChange={() => {
-              console.log("object");
-            }}
-          >
+          <label htmlFor="agotado" onChange={() => setFilter("agotado")}>
             <input
               type="checkbox"
-              name="all"
-              id="all"
+              name="agotado"
+              id="agotado"
               className="sr-only peer"
             />
 
-            <span className="ml-3 text-sm font-medium  px-4 py-2 text-black rounded-md border border-black bg-white">
+            <span
+              className={`ml-3 text-sm font-medium  px-4 py-2 text-black rounded-md border border-black  ${
+                filter === "agotado"
+                  ? "bg-primary-color text-white border-white"
+                  : "bg-white"
+              }`}
+            >
               Agotados
             </span>
           </label>

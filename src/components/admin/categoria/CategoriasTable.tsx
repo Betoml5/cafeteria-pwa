@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ICategoria } from "../../../types";
 import { FC, useMemo, useState } from "react";
 import UpdateCategoriaForm from "../forms/UpdateCategoriaForm";
@@ -26,13 +25,11 @@ const CategoriasTable: FC<Props> = ({
   );
 
   const filteredCategorias = useMemo(() => {
-    if (search === "") {
-      return categorias;
-    } else {
-      return categorias.filter((item) =>
-        item.nombre.toLowerCase().includes(search.toLowerCase())
-      );
-    }
+    if (search === "") return categorias;
+
+    return categorias.filter((item) =>
+      item.nombre.toLowerCase().includes(search.toLowerCase())
+    );
   }, [search, categorias]);
   return (
     <div className="overflow-x-auto">
@@ -93,11 +90,7 @@ const CategoriasTable: FC<Props> = ({
           )}
           {filteredCategorias.map((item) => (
             <tr>
-              <td className="td">
-                <Link className="underline" to={`/admin/categorias/${item.id}`}>
-                  {item.nombre}
-                </Link>
-              </td>
+              <td className="td">{item.nombre}</td>
               <td className="td">{item.productos.length}</td>
               <td className="td">
                 <button

@@ -1,16 +1,16 @@
 import { FC } from "react";
-import Product from "./Product";
-import { IProducto } from "../../types";
+import { IMenuProduct } from "../../types";
+import MenuDayProduct from "./MenuDayProduct";
 
 interface Props {
-  products: IProducto[];
+  products: IMenuProduct[];
 }
 
 const DayMenu: FC<Props> = ({ products }) => {
   return (
     <>
       {products.map((item) => (
-        <Product product={item} />
+        <MenuDayProduct product={item} />
       ))}
     </>
   );

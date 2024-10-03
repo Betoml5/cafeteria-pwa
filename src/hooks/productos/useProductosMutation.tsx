@@ -52,6 +52,7 @@ const useProductosMutation = () => {
     onSuccess: () => {
       toast("Producto actualizado");
       client.invalidateQueries(["productos"]);
+      client.invalidateQueries(["menu"]);
     },
     onError: () => {
       toast.error("Error al crear producto");

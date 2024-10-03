@@ -11,3 +11,9 @@ export interface ICategoria {
   id: number;
   nombre: string;
 }
+
+export interface IMenuProduct {
+  id: number;
+  idProducto: number;
+  producto: IProducto;
+}

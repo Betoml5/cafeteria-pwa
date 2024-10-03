@@ -5,16 +5,18 @@ import { Link } from "react-router-dom";
 import CategoriasTable from "../../components/admin/categoria/CategoriasTable";
 import SelectedModal from "../../components/admin/SelectedModal";
 import useProductos from "../../hooks/productos/useProductos";
-import { ICategoria, IProducto } from "../../types";
+import { ICategoria, IMenuProduct, IProducto } from "../../types";
 import useCategorias from "../../hooks/categorias/useCategorias";
 import { MODALS_NAMES } from "../../constants";
 import Loader from "../../components/shared/Loader";
+import useMenuDia from "../../hooks/menu/useMenuDia";
 const Dashboard = () => {
   const [selectedModal, setSelectedModal] = useState("");
   const productos = useProductos();
   const categorias = useCategorias();
+  const menu = useMenuDia();
 
-  if (productos.isLoading || categorias.isLoading) {
+  if (productos.isLoading || categorias.isLoading || menu.isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader />
@@ -37,7 +39,7 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="flex gap-x-2 overflow-x-auto dayMenu mx-2">
-          <DayMenu products={productos.data as IProducto[]} />
+          <DayMenu products={menu.data as IMenuProduct[]} />
         </div>
       </div>
       <div className="col-span-full p-4 lg:col-span-8">

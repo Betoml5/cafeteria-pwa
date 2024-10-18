@@ -10,6 +10,7 @@ import useCategorias from "../../hooks/categorias/useCategorias";
 import { MODALS_NAMES } from "../../constants";
 import Loader from "../../components/shared/Loader";
 import useMenuDia from "../../hooks/menu/useMenuDia";
+import Product from "../../components/admin/productos/Product";
 const Dashboard = () => {
   const [selectedModal, setSelectedModal] = useState("");
   const productos = useProductos();
@@ -44,8 +45,20 @@ const Dashboard = () => {
         Gestión de productos
       </h3>
 
-      <div>
-        <p>Bebidas</p>
+      <div className="col-span-full">
+        {categorias.data?.map((categoria) => (
+          <div>
+            <p>{categoria.nombre}</p>
+            {categoria.productos.length === 0 && (
+              <p className="text-center">No hay productos</p>
+            )}
+            <div className="flex">
+              {categoria.productos.map((producto) => (
+                <Product producto={producto} />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

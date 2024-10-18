@@ -1,22 +1,28 @@
 import { FC } from "react";
-import { IMenuProduct } from "../../../types";
+import { IProducto } from "../../../types";
 
 interface Props {
-  producto: IMenuProduct;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
-  selected: boolean;
+  producto: IProducto;
 }
 
-const Product: FC<Props> = ({ producto, onChange, selected }) => {
+const Product: FC<Props> = ({ producto }) => {
   return (
-    <div className="flex flex-col bg-white border border-gray-500/70 rounded-lg p-4 m-2 min-w-40 snap-center">
-      <img
-        className="w-32 h-32 object-contain self-center"
-        src={`https://pwabrd.labsystec.net/producto/${producto.producto.id}.webp`}
-        alt={producto.producto.nombre}
-      />
+    <div
+      className={`flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 ${
+        producto.disponible
+          ? "border-b-green-500 border-b-4"
+          : "border-b-red-500 border-b-4"
+      }`}
+    >
       <div>
-        <h3>{producto.producto.nombre}</h3>
+        <img
+          className="w-32 h-32 object-contain self-center"
+          src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
+          alt={producto.nombre}
+        />
+      </div>
+      <div>
+        <h3>{producto.nombre}</h3>
       </div>
     </div>
   );

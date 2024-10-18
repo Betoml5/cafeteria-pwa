@@ -25,40 +25,27 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="grid grid-cols-12 ">
-      <SelectedModal
-        selectedModal={selectedModal}
-        isOpen={selectedModal !== ""}
-        onClose={() => setSelectedModal("")}
-      />
-      <div className="col-span-full  lg:col-span-full">
-        <div className="flex flex-col items-center  my-4 mx-4 ">
-          <h1 className="text-center font-bold text-5xl my-4">Menú del dia</h1>
-          <Link to="/admin/actualizar-menu" className="btn mx-4">
-            Modificar menu
-          </Link>
-        </div>
-        <div className="flex gap-x-2 overflow-x-auto dayMenu mx-2">
-          <DayMenu products={menu.data as IMenuProduct[]} />
+    <div className="grid grid-cols-12 p-4">
+      <div className="col-span-12 md:col-span-8">
+        <div className="flex gap-x-2 ">
+          <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
+            Inicio
+          </p>
+          <p className="flex items-center">|</p>
+          {categorias.data?.map((item) => (
+            <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
+              {item.nombre}
+            </p>
+          ))}
         </div>
       </div>
-      <div className="col-span-full p-4 lg:col-span-8">
-        <p className="text-2xl mb-2">Productos</p>
-        <ProductsTable
-          productos={productos.data as IProducto[]}
-          onAdd={() => setSelectedModal(MODALS_NAMES.ADD_PRODUCT)}
-          onEdit={() => setSelectedModal(MODALS_NAMES.EDIT_PRODUCT)}
-          onDelete={() => setSelectedModal(MODALS_NAMES.DELETE_PRODUCT)}
-        />
-      </div>
-      <div className=" col-span-full  p-4 lg:col-span-4">
-        <p className="text-2xl mb-2">Categorias</p>
-        <CategoriasTable
-          onAdd={() => setSelectedModal(MODALS_NAMES.CREATE_CATEGORIA)}
-          onEdit={() => setSelectedModal(MODALS_NAMES.EDIT_CATEGORIA)}
-          onDelete={() => setSelectedModal(MODALS_NAMES.DELETE_CATEGORIA)}
-          categorias={categorias.data as ICategoria[]}
-        />
+
+      <h3 className="col-span-full text-2xl font-semibold my-4">
+        Gestión de productos
+      </h3>
+
+      <div>
+        <p>Bebidas</p>
       </div>
     </div>
   );

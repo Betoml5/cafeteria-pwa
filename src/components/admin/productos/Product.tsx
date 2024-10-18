@@ -17,14 +17,6 @@ const Product: FC<Props> = ({ producto, onChange, selected }) => {
       />
       <div>
         <h3>{producto.producto.nombre}</h3>
-
-        <input
-          className="mr-2"
-          type="checkbox"
-          checked={selected}
-          onChange={(e) => onChange(e, producto.idProducto)}
-        />
-        <label htmlFor="isAvaliable">Seleccionar</label>
       </div>
     </div>
   );

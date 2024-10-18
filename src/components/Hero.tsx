@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <div className="flex flex-col justify-center items-center bg-hero-cafeteria  bg-center  bg-no-repeat text-white h-72 md:bg-cover">
+    <div className="flex flex-col justify-center items-center bg-hero-cafeteria  bg-center  bg-no-repeat text-white h-72 md:bg-cover ">
       <nav className="flex flex-col justify-center  items-center p-4">
         <div className="flex items-center">
           <img src="/tecLogo.png" alt="Logo de TECNM" />

@@ -1,18 +1,15 @@
-import DayMenu from "../../components/menu/DayMenu";
 import { useState } from "react";
-import ProductsTable from "../../components/admin/productos/ProductsTable";
-import { Link } from "react-router-dom";
-import CategoriasTable from "../../components/admin/categoria/CategoriasTable";
-import SelectedModal from "../../components/admin/SelectedModal";
+
 import useProductos from "../../hooks/productos/useProductos";
-import { ICategoria, IMenuProduct, IProducto } from "../../types";
 import useCategorias from "../../hooks/categorias/useCategorias";
-import { MODALS_NAMES } from "../../constants";
 import Loader from "../../components/shared/Loader";
 import useMenuDia from "../../hooks/menu/useMenuDia";
 import Product from "../../components/admin/productos/Product";
+import SelectedModal from "../../components/admin/SelectedModal";
+import Modal from "../../components/shared/Modal";
+import CreateProductoForm from "../../components/admin/forms/CreateProductoForm";
 const Dashboard = () => {
-  const [selectedModal, setSelectedModal] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const productos = useProductos();
   const categorias = useCategorias();
   const menu = useMenuDia();
@@ -26,7 +23,20 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="grid grid-cols-12 p-4">
+    <div className="grid grid-cols-12 p-4 relative ">
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Agregar producto"
+      >
+        <CreateProductoForm />
+      </Modal>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="absolute bottom-2 right-10 py-4 px-6 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
+      >
+        +
+      </button>
       <div className="col-span-12 md:col-span-8">
         <div className="flex gap-x-2 ">
           <p className="px-4 py-1 bg-white rounded-md border border-gray-400">

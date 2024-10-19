@@ -4,6 +4,7 @@ import Dashboard from "./screens/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
 import MainLayout from "./layouts/MainLayout";
 import UpdateDayMenu from "./screens/admin/UpdateDayMenu";
+import CategoriasView from "./screens/admin/CategoriasView";
 function App() {
   return (
     <Routes>
@@ -12,6 +13,7 @@ function App() {
       </Route>
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="" element={<Dashboard />} index />
+        <Route path="categorias" element={<CategoriasView />} />
         {/* <Route path="/admin/categorias/agregar" element={<ProtectedRoute />} /> */}
 
         <Route path="/admin/actualizar-menu" element={<UpdateDayMenu />} />

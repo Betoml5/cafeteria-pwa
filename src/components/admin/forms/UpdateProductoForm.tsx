@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
 import { FC, useEffect, useState } from "react";
 import { IProducto } from "../../../types";
 import convertToBase64 from "../../../utils/convertToBase64";
+import { toast } from "sonner";
 
 interface FormValues {
   id: number;
@@ -39,13 +41,26 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const file = data.ImagenBase64[0];
-    const image = await convertToBase64(file);
-    const dto = {
-      ...data,
-      ImagenBase64: image,
-    };
-    mutation.updateMutation.mutate(dto);
+    try {
+      const file = data.ImagenBase64[0];
+      if (file) {
+        const image = await convertToBase64(file);
+        const dto = {
+          ...data,
+          ImagenBase64: image,
+        };
+        mutation.updateMutation.mutate(dto);
+      } else {
+        const dto = {
+          ...data,
+          ImagenBase64: null,
+        };
+        mutation.updateMutation.mutate(dto);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Error al actualizar producto", error);
+    }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

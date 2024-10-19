@@ -46,6 +46,10 @@ html {
   @apply rounded-lg text-white font-bold bg-primary-color px-4 py-2;
 }
 
+.dayMenu {
+  @apply overflow-y-auto;
+}
+
 .dayMenu::-webkit-scrollbar {
   border-radius: 10px;
   width: 10px;

@@ -7,11 +7,20 @@ import useMenuDia from "../../hooks/menu/useMenuDia";
 import Product from "../../components/admin/productos/Product";
 import Modal from "../../components/shared/Modal";
 import CreateProductoForm from "../../components/admin/forms/CreateProductoForm";
+import DeleteProductoForm from "../../components/admin/forms/DeleteProductoForm";
+import UpdateProductoForm from "../../components/admin/forms/UpdateProductoForm";
+import { MODALS_NAMES } from "../../constants";
+import { IProducto } from "../../types";
+
 const Dashboard = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const productos = useProductos();
   const categorias = useCategorias();
   const menu = useMenuDia();
+
+  const [selectedProducto, setSelectedProducto] = useState<IProducto | null>(
+    null
+  );
+  const [action, setAction] = useState<string | null>(null);
 
   if (productos.isLoading || categorias.isLoading || menu.isLoading) {
     return (
@@ -21,20 +30,52 @@ const Dashboard = () => {
     );
   }
 
+  const onClose = () => {
+    setSelectedProducto(null);
+    setAction(null);
+  };
+
   return (
     <div className="grid grid-cols-12 p-4 relative ">
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Agregar producto"
-      >
-        <CreateProductoForm />
-      </Modal>
+      {action === MODALS_NAMES.ADD_PRODUCT && (
+        <Modal
+          isOpen={action === MODALS_NAMES.ADD_PRODUCT}
+          onClose={onClose}
+          title="Agregar producto"
+        >
+          <CreateProductoForm />
+        </Modal>
+      )}
+      {action === MODALS_NAMES.DELETE_PRODUCT && (
+        <Modal
+          title="Eliminar producto"
+          isOpen={!!selectedProducto && action === MODALS_NAMES.DELETE_PRODUCT}
+          onClose={onClose}
+        >
+          <DeleteProductoForm
+            onClose={onClose}
+            producto={selectedProducto as IProducto}
+          />
+        </Modal>
+      )}
+      {action === MODALS_NAMES.EDIT_PRODUCT && (
+        <Modal
+          title="Editar producto"
+          isOpen={!!selectedProducto && action === MODALS_NAMES.EDIT_PRODUCT}
+          onClose={() => {
+            setAction(null);
+            setSelectedProducto(null);
+          }}
+        >
+          <UpdateProductoForm producto={selectedProducto as IProducto} />
+        </Modal>
+      )}
+
       <button
-        onClick={() => setIsOpen(true)}
-        className="absolute bottom-2 right-10 py-4 px-6 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
+        onClick={() => setAction(MODALS_NAMES.ADD_PRODUCT)}
+        className="absolute bottom-2 right-4 p-2 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
       >
-        +
+        <img src="/add.svg" alt="add" className="w-10 h-10 lg:w-12 lg:h-12" />
       </button>
       <div className="col-span-12 md:col-span-8">
         <div className="flex gap-x-2 ">
@@ -56,14 +97,22 @@ const Dashboard = () => {
 
       <div className="col-span-full">
         {categorias.data?.map((categoria) => (
-          <div>
+          <div key={categoria.id}>
             <p>{categoria.nombre}</p>
             {categoria.productos.length === 0 && (
               <p className="text-center">No hay productos</p>
             )}
-            <div className="flex">
-              {categoria.productos.map((producto) => (
-                <Product producto={producto} />
+            <div className="flex dayMenu">
+              {categoria.productos?.map((producto: IProducto) => (
+                <Product
+                  key={producto.id}
+                  producto={producto}
+                  onContextMenu={() => setSelectedProducto(producto)}
+                  onDelete={() => setAction(MODALS_NAMES.DELETE_PRODUCT)}
+                  onEdit={() => {
+                    setAction(MODALS_NAMES.EDIT_PRODUCT);
+                  }}
+                />
               ))}
             </div>
           </div>

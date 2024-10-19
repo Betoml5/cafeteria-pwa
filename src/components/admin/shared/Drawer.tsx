@@ -24,7 +24,7 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
   return (
     <aside
       ref={drawerRef}
-      className={`fixed top-0 right-0 bg-primary-color text-white w-96 min-h-screen overflow-y-auto
+      className={`fixed z-50 top-0 right-0 bg-primary-color text-white w-96 min-h-screen overflow-y-auto
       transform transition-transform duration-300 ease-in-out ${
         open ? "translate-x-0" : "translate-x-full"
       }`}
@@ -37,7 +37,7 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
           <Link to="/admin">Inicio</Link>
           <Link to="/admin/categorias">Categorías</Link>
           <Link to="/admin/productos">Productos</Link>
-          <Link to="/admin/menu-dia">Menú del día</Link>
+          <Link to="/admin/actualizar-menu">Menú del día</Link>
           <button className="mt-4 text-left">Cerrar sesión</button>
         </div>
       </div>

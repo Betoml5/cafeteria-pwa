@@ -9,11 +9,11 @@ const useCategoriasMutation = () => {
     mutationKey: ["categorias"],
     mutationFn: CategoriaService.create,
     onSuccess: () => {
-      toast("Producto creado");
+      toast("Categoría creada");
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {
-      toast.error("Error al crear producto");
+      toast.error("Error al crear categoría");
     },
   });
 
@@ -21,11 +21,11 @@ const useCategoriasMutation = () => {
     mutationKey: ["categorias"],
     mutationFn: CategoriaService.delete,
     onSuccess: () => {
-      toast("Producto eliminado");
+      toast("Categoría eliminado");
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {
-      toast.error("Error al eliminar producto");
+      toast.error("Error al eliminar categoría");
     },
   });
 
@@ -33,11 +33,11 @@ const useCategoriasMutation = () => {
     mutationKey: ["categorias"],
     mutationFn: CategoriaService.update,
     onSuccess: () => {
-      toast("Producto actualizado");
+      toast("Categoria actualizada");
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {
-      toast.error("Error al crear producto");
+      toast.error("Error al actualizar Categoría");
     },
   });
 

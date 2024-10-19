@@ -56,7 +56,6 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
 
   return (
     <div className="mx-4 my-10 max-w-xl md:mx-auto">
-      <h1 className="text-center font-bold text-5xl mb-10">Editar categoría</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col rounded-lg"
@@ -89,7 +88,7 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
           type="file"
           src="/add.png"
           alt="Agregar categoría"
-          {...register("imagenBase64", { required: true })}
+          {...register("imagenBase64", { required: false })}
           onChange={handleImageChange}
         />
         {errors.imagenBase64 && (

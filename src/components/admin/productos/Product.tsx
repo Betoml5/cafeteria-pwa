@@ -1,41 +1,33 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IProducto } from "../../../types";
 import { Menu, Item, useContextMenu, contextMenu } from "react-contexify";
 
 import "react-contexify/dist/ReactContexify.css";
-import Modal from "../../shared/Modal";
-import DeleteProductoForm from "../forms/DeleteProductoForm";
-import UpdateProductoForm from "../forms/UpdateProductoForm";
 
 interface Props {
   producto: IProducto;
+  onDelete: () => void;
+  onEdit: () => void;
+  onContextMenu: () => void;
 }
-const MENU_ID = "menu-id";
+const MENU_ID = "menu-id-producto";
 
-const Product: FC<Props> = ({ producto }) => {
-  const [action, setAction] = useState<string | null>(null);
+const Product: FC<Props> = ({
+  producto,
+  onDelete,
+  onEdit,
+  onContextMenu: onCtx,
+}) => {
   const { show } = useContextMenu({
     id: MENU_ID,
   });
 
   function displayMenu(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    // put whatever custom logic you need
-    // you can even decide to not display the Menu
     show({
       event: e,
     });
-
-    console.log(e);
+    onCtx();
   }
-
-  const handleEdit = () => {
-    setAction("edit");
-  };
-
-  const handleDelete = () => {
-    setAction("delete");
-  };
-
   const onContextMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -43,31 +35,18 @@ const Product: FC<Props> = ({ producto }) => {
       id: MENU_ID,
       event: e,
     });
+    onCtx();
   };
 
   return (
     <>
-      {
-        <Modal
-          title="Eliminar producto"
-          isOpen={action === "delete"}
-          onClose={() => setAction(null)}
-        >
-          <DeleteProductoForm producto={producto} />
-        </Modal>
-      }
-      {
-        <Modal
-          title="Editar producto"
-          isOpen={action === "edit"}
-          onClose={() => setAction(null)}
-        >
-          <UpdateProductoForm producto={producto} />
-        </Modal>
-      }
+      <Menu id={MENU_ID} key={producto.id}>
+        <Item onClick={onEdit}>Editar</Item>
+        <Item onClick={onDelete}>Eliminar</Item>
+      </Menu>
       <div
         onContextMenu={displayMenu}
-        className={`relative flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 ${
+        className={`relative  flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 ${
           producto.disponible
             ? "border-b-green-500 border-b-4"
             : "border-b-red-500 border-b-4"
@@ -87,10 +66,6 @@ const Product: FC<Props> = ({ producto }) => {
           <img src="/more.png" alt="more" className="w-6 h-6 rotate-90" />
         </button>
       </div>
-      <Menu id={MENU_ID}>
-        <Item onClick={handleEdit}>Editar</Item>
-        <Item onClick={handleDelete}>Eliminar</Item>
-      </Menu>
     </>
   );
 };

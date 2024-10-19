@@ -12,7 +12,6 @@ const DeleteCategoriaForm: FC<Props> = ({
   setSelectedCategoria,
 }) => {
   const { deleteMutation } = useCategoriasMutation();
-
   const handleClick = () => {
     deleteMutation.mutate(categoria.id);
     setSelectedCategoria(null);

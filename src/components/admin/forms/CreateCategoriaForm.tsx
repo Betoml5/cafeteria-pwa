@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useCategoriasMutation from "../../../hooks/categorias/useCategoriasMutation";
@@ -19,13 +20,17 @@ const CreateCategoriaForm = () => {
   const { createMutation } = useCategoriasMutation();
 
   const onSubmit = async (data: FormValues) => {
-    const file = data.imagenBase64[0];
-    const image = await convertToBase64(file);
-    const dto = {
-      imagenBase64: image,
-      nombre: data.nombre,
-    };
-    createMutation.mutate(dto);
+    try {
+      const file = data.imagenBase64[0];
+      const image = await convertToBase64(file);
+      const dto = {
+        imagenBase64: image,
+        nombre: data.nombre,
+      };
+      createMutation.mutate(dto);
+    } catch (error: any) {
+      throw new Error("Error al agregar categoría" + error.message);
+    }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -11,6 +11,7 @@ const useProductosMutation = () => {
     onSuccess: () => {
       toast("Producto creado");
       client.invalidateQueries(["productos"]);
+      client.invalidateQueries(["categorias"]);
     },
     onError: () => {
       toast.error("Error al crear producto");
@@ -22,6 +23,7 @@ const useProductosMutation = () => {
     onSuccess: () => {
       toast("Producto actualizado");
       client.invalidateQueries(["productos"]);
+      client.invalidateQueries(["categorias"]);
     },
     onError: () => {
       toast.error("Error al crear producto");
@@ -34,6 +36,7 @@ const useProductosMutation = () => {
     onSuccess: () => {
       toast("Producto eliminado");
       client.invalidateQueries(["productos"]);
+      client.invalidateQueries(["categorias"]);
     },
     onError: () => {
       toast.error("Error al eliminar producto");
@@ -53,6 +56,7 @@ const useProductosMutation = () => {
       toast("Producto actualizado");
       client.invalidateQueries(["productos"]);
       client.invalidateQueries(["menu"]);
+      client.invalidateQueries(["categorias"]);
     },
     onError: () => {
       toast.error("Error al crear producto");

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCategorias from "../../../hooks/categorias/useCategorias";
 import useProductosMutation from "../../../hooks/productos/useProductosMutation";
 import { useEffect, useState } from "react";
 import convertToBase64 from "../../../utils/convertToBase64";
+import { toast } from "sonner";
 
 interface FormValues {
   nombre: string;
@@ -30,13 +32,17 @@ const CreateProductoForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const file = data.ImagenBase64[0];
-    const image = await convertToBase64(file);
-    const dto = {
-      ...data,
-      ImagenBase64: image,
-    };
-    createMutation.mutate(dto);
+    try {
+      const file = data.ImagenBase64[0];
+      const image = await convertToBase64(file);
+      const dto = {
+        ...data,
+        ImagenBase64: image,
+      };
+      createMutation.mutate(dto);
+    } catch (error: any) {
+      toast.error("Error al agregar producto", error);
+    }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +54,10 @@ const CreateProductoForm = () => {
   };
 
   useEffect(() => {
-    if (createMutation.isSuccess) reset();
+    if (createMutation.isSuccess) {
+      reset();
+      setImagePreview(null);
+    }
   }, [createMutation.isSuccess, reset]);
 
   return (

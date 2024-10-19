@@ -5,7 +5,6 @@ import useCategorias from "../../hooks/categorias/useCategorias";
 import Loader from "../../components/shared/Loader";
 import useMenuDia from "../../hooks/menu/useMenuDia";
 import Product from "../../components/admin/productos/Product";
-import SelectedModal from "../../components/admin/SelectedModal";
 import Modal from "../../components/shared/Modal";
 import CreateProductoForm from "../../components/admin/forms/CreateProductoForm";
 const Dashboard = () => {

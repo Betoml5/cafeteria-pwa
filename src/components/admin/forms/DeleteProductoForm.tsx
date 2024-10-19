@@ -4,15 +4,13 @@ import { IProducto } from "../../../types";
 
 interface Props {
   producto: IProducto;
-  setSelectedProduct: (producto: IProducto | null) => void;
 }
 
-const DeleteProductoForm: FC<Props> = ({ producto, setSelectedProduct }) => {
+const DeleteProductoForm: FC<Props> = ({ producto }) => {
   const { deleteMutation } = useProductosMutation();
 
   const handleClick = () => {
     deleteMutation.mutate(producto.id);
-    setSelectedProduct(null);
   };
 
   return (

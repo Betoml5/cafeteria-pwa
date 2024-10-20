@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AdminProduct from "../../components/admin/productos/Product";
 import useMenuDia from "../../hooks/menu/useMenuDia";
 import useMenuDiaMutation from "../../hooks/menu/useMenuDiaMutation";
 import useProductos from "../../hooks/productos/useProductos";
 import Loader from "../../components/shared/Loader";
+import MenuDayProduct from "../../components/admin/productos/MenuDayProduct";
 const UpdateDayMenu = () => {
   const productos = useProductos();
   const { update } = useMenuDiaMutation();
@@ -30,9 +30,7 @@ const UpdateDayMenu = () => {
     if (menu.data) {
       setSelected(menu.data.map((item) => item.idProducto));
     }
-
-    console.log(selected);
-  }, [menu.data, selected]);
+  }, [menu.data]);
 
   if (productos.isLoading || menu.isLoading)
     return (
@@ -58,15 +56,13 @@ const UpdateDayMenu = () => {
 
       <div className="flex overflow-auto">
         {menu.data?.map((item) => (
-          <AdminProduct
-            producto={item.producto}
-            onChange={(e) => onChange(e, item.idProducto)}
-            selected={selected.includes(item.idProducto)}
-            key={item.idProducto}
+          <MenuDayProduct
+            producto={item}
+            onChange={(e) => onChange(e, item.producto.id)}
+            selected={selected.includes(item.producto.id)}
+            key={item.producto.id}
           />
         ))}
-        {/* <AdminProduct producto={productosMock[0]} /> */}
-        {/* <AdminProduct producto={productosMock[1]} /> */}
       </div>
       <p className="text-2xl font-semibold">Catalogo</p>
       <div className="flex overflow-x-auto">
@@ -76,7 +72,10 @@ const UpdateDayMenu = () => {
           </div>
         )}
         {catalogo?.map((item) => (
-          <div className="flex flex-col bg-white border border-gray-500/70 rounded-lg p-4 m-2 min-w-40 snap-center">
+          <div
+            key={item.id}
+            className="flex flex-col bg-white border border-gray-500/70 rounded-lg p-4 m-2 min-w-40 snap-center"
+          >
             <img
               className="w-32 h-32 object-contain self-center"
               src={`https://pwabrd.labsystec.net/producto/${item.id}.webp`}

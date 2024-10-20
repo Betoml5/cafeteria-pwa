@@ -40,7 +40,8 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
 
   const onSubmit = async (data: FormValues) => {
     const file = data.imagenBase64[0];
-    const image = await convertToBase64(file);
+    let image;
+    if (file) image = await convertToBase64(file);
     const dto = {
       ...data,
       imagenBase64: image,

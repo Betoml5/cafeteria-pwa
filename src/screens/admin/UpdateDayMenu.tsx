@@ -32,7 +32,7 @@ const UpdateDayMenu = () => {
     }
 
     console.log(selected);
-  }, [menu.data]);
+  }, [menu.data, selected]);
 
   if (productos.isLoading || menu.isLoading)
     return (
@@ -59,7 +59,7 @@ const UpdateDayMenu = () => {
       <div className="flex overflow-auto">
         {menu.data?.map((item) => (
           <AdminProduct
-            producto={item}
+            producto={item.producto}
             onChange={(e) => onChange(e, item.idProducto)}
             selected={selected.includes(item.idProducto)}
             key={item.idProducto}

@@ -42,21 +42,14 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
+      let image;
       const file = data.ImagenBase64[0];
-      if (file) {
-        const image = await convertToBase64(file);
-        const dto = {
-          ...data,
-          ImagenBase64: image,
-        };
-        mutation.updateMutation.mutate(dto);
-      } else {
-        const dto = {
-          ...data,
-          ImagenBase64: null,
-        };
-        mutation.updateMutation.mutate(dto);
-      }
+      if (file) image = await convertToBase64(file);
+      const dto = {
+        ...data,
+        ImagenBase64: image,
+      };
+      mutation.updateMutation.mutate(dto);
     } catch (error: any) {
       console.log(error);
       toast.error("Error al actualizar producto", error);

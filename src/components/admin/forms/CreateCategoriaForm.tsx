@@ -13,6 +13,7 @@ const CreateCategoriaForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>();
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -27,9 +28,13 @@ const CreateCategoriaForm = () => {
         imagenBase64: image,
         nombre: data.nombre,
       };
+
       createMutation.mutate(dto);
     } catch (error: any) {
       throw new Error("Error al agregar categoría" + error.message);
+    } finally {
+      reset();
+      setImagePreview(null);
     }
   };
 

@@ -14,7 +14,7 @@ const MenuDayProduct: FC<Props> = ({
 }) => {
   return (
     <div
-      className={`relative  flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 border border-gray-700/50 `}
+      className={`relative  flex flex-col bg-white  p-4  rounded-lg m-2 min-w-40 border border-gray-700/50 `}
     >
       <div>
         <img
@@ -26,11 +26,15 @@ const MenuDayProduct: FC<Props> = ({
       <div>
         <h3>{producto.nombre}</h3>
       </div>
-      <input
-        type="checkbox"
-        onChange={(e) => onChange(e, producto.id)}
-        checked={selected}
-      />
+      <div>
+        <input
+          className=" mr-2"
+          type="checkbox"
+          onChange={(e) => onChange(e, producto.id)}
+          checked={selected}
+        />
+        <label htmlFor="isAvaliable">Seleccionar</label>
+      </div>
     </div>
   );
 };

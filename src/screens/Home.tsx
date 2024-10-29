@@ -5,11 +5,7 @@ import { IMenuProduct } from "../types";
 import Loader from "../components/shared/Loader";
 import useMenuDia from "../hooks/menu/useMenuDia";
 import useProductos from "../hooks/productos/useProductos";
-import Product from "../components/menu/Product";
-import { useState } from "react";
 const Home = () => {
-  const [search, setSearch] = useState("");
-
   const menu = useMenuDia();
   const productos = useProductos();
 
@@ -20,55 +16,18 @@ const Home = () => {
       </div>
     );
 
-  const catalogo = productos.data?.filter(
-    (item) =>
-      !menu.data?.find((menuItem) => menuItem.idProducto === item.id) &&
-      item.nombre.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <div>
       <Hero />
       <div className="p-4">
-        <Categories />
+        {/* <Categories /> */}
         <h1 className="text-center font-bold text-5xl my-4">Menú del dia</h1>
-        <div className="flex gap-x-2 overflow-x-auto dayMenu snap-proximity overscroll-x-contain md:flex-wrap md:justify-center">
+        <div className="mx-auto ">
           <DayMenu products={menu.data as IMenuProduct[]} />
         </div>
-        <p className="text-3xl font-semibold mb-2 mt-4">Otros productos</p>
-        <div className="flex flex-col  ">
-          <div>
-            <div className="relative">
-              <img
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                src="/search.svg"
-                alt="Buscar productos"
-              />
-              <input
-                type="text"
-                className="input pl-10 w-full lg:w-1/6"
-                placeholder="Buscar"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-x-2 overflow-x-auto mt-4 dayMenu ">
-            {catalogo?.length === 0 && (
-              <div>
-                <p className="text-xl mt-4">
-                  No hay productos que coincidan con {search}
-                </p>
-              </div>
-            )}
-            {catalogo?.map((product) => (
-              <Product product={product} />
-            ))}
-            {/* <Product product={products[0]} />
-            <Product product={products[1]} />
-            <Product product={products[2]} />
-            <Product product={products[3]} /> */}
-          </div>
+        <div className="my-4">
+          <h1 className="text-left font-bold text-3xl my-4">Categorías</h1>
+          <Categories />
         </div>
       </div>
     </div>

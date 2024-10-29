@@ -65,4 +65,18 @@ html {
   border-radius: 10px;
 }
 
+.swiper-button-prev {
+  color: #000;
+  transform: scale(0.5);
+}
+
+.swiper-button-next {
+  color: #000;
+  transform: scale(0.5);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #000 !important;
+}
+
 @tailwind utilities;

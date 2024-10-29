@@ -39,8 +39,6 @@ const UpdateDayMenu = () => {
       </div>
     );
 
-  console.log(selected);
-
   return (
     <div className="m-4">
       <div className="flex justify-between items-center">

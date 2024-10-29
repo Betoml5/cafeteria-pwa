@@ -13,17 +13,17 @@ const Categories = () => {
     );
 
   return (
-    <div className="flex flex-wrap justify-center gap-x-1 lg:gap-x-2">
+    <div className="flex flex-wrap  gap-x-1 lg:gap-x-2">
       {categorias.data?.map((categoria) => (
-        <Link
-          to={`/?category=${categoria.nombre}`}
-          key={categoria.id}
-          className="bg-white rounded-full border-2 p-4"
-        >
-          <img
-            className="w-8 h-8 object-contain lg:w-16 lg:h-16"
-            src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp`}
-          />
+        <Link to="#" className="flex flex-col items-center">
+          <div className="flex items-center bg-white p-4 rounded-full border border-gray-700/30">
+            <img
+              src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp`}
+              alt=""
+              className="w-8 h-8 object-contain lg:w-16 lg:h-16"
+            />
+          </div>
+          <p className="text-center">{categoria.nombre}</p>
         </Link>
       ))}
       {/* <Link to={`/?category=$example`}>

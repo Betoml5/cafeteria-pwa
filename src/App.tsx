@@ -6,12 +6,14 @@ import MainLayout from "./layouts/MainLayout";
 import UpdateDayMenu from "./screens/admin/UpdateDayMenu";
 import CategoriasView from "./screens/admin/CategoriasView";
 import ProductsByCategory from "./screens/ProductsByCategory";
+import Login from "./screens/Login";
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Home />} />
         <Route path="categoria" element={<ProductsByCategory />} />
+        <Route path="login" element={<Login />} />
       </Route>
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="" element={<Dashboard />} index />

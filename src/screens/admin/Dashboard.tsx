@@ -78,16 +78,18 @@ const Dashboard = () => {
         <img src="/add.svg" alt="add" className="w-10 h-10 lg:w-12 lg:h-12" />
       </button>
       <div className="col-span-12 md:col-span-8">
-        <div className="flex gap-x-2 ">
-          <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
+        <div className="flex flex-col gap-x-2 md:flex-row ">
+          <p className="flex items-center justify-center mb-2 px-4 py-1 bg-white rounded-md border border-gray-400 md:m-0">
             Inicio
           </p>
-          <p className="flex items-center">|</p>
-          {categorias.data?.map((item) => (
-            <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
-              {item.nombre}
-            </p>
-          ))}
+          <p className=" items-center hidden  md:flex">|</p>
+          <div className="flex items-center flex-wrap gap-2">
+            {categorias.data?.map((item) => (
+              <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
+                {item.nombre}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
 

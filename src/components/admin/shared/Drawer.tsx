@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/auth/useAuth";
 
 interface DrawerProps {
   open: boolean;
@@ -8,6 +9,8 @@ interface DrawerProps {
 }
 
 const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
+  const auth = useAuth();
+
   const drawerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -22,11 +25,15 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
     };
   }, [setOpen]);
 
+  const handleCloseDrawer = () => {
+    setOpen(false);
+  };
+
   return (
     <aside
       ref={drawerRef}
-      className={`fixed z-50 top-0 right-0 bg-primary-color text-white w-96 min-h-screen overflow-y-auto
-      transform transition-transform duration-300 ease-in-out ${
+      className={`fixed z-50 top-0 right-0 bg-primary-color text-white w-full min-h-screen overflow-y-auto
+      transform transition-transform duration-300 ease-in-out md:w-96  ${
         open ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -34,13 +41,35 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
         <button className="self-end" onClick={() => setOpen(!open)}>
           <img src="/menu.png" alt="menu" />
         </button>
-        <div className="flex flex-col items-center text-xl mt-4 space-y-2">
-          <Link to="/admin">Inicio</Link>
-          <Link to="/admin/categorias">Categorías</Link>
-          <Link to="/admin/productos">Productos</Link>
-          <Link to="/admin/actualizar-menu">Menú del día</Link>
-          <button className="mt-4 text-left">Cerrar sesión</button>
-        </div>
+        {auth && (
+          <div className="flex flex-col items-center text-xl mt-4 space-y-2">
+            <Link to="/admin" onClick={handleCloseDrawer}>
+              Inicio
+            </Link>
+            <Link to="/admin/categorias" onClick={handleCloseDrawer}>
+              Categorías
+            </Link>
+            <Link to="/admin/productos" onClick={handleCloseDrawer}>
+              Productos
+            </Link>
+            <Link to="/admin/actualizar-menu" onClick={handleCloseDrawer}>
+              Menú del día
+            </Link>
+            <button className="mt-4 text-left" onClick={handleCloseDrawer}>
+              Cerrar sesión
+            </button>
+          </div>
+        )}
+        {!auth && (
+          <div className="flex flex-col items-center text-xl mt-4 space-y-2">
+            <Link to="/" onClick={handleCloseDrawer}>
+              Inicio
+            </Link>
+            <Link to="/login" onClick={handleCloseDrawer}>
+              Iniciar sesión
+            </Link>
+          </div>
+        )}
       </div>
     </aside>
   );

@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import React from "react";
+import useAuth from "../../hooks/auth/useAuth";
 
 interface ProtectedRouteProps {
   element: React.ComponentType<unknown>; // Espera un componente JSX válido
@@ -11,13 +12,9 @@ const ProtectedRoute = ({
   element: Element,
   fallbackPath,
 }: ProtectedRouteProps) => {
-  //   const { get } = usePeriodo();
-  //   const { token } = useAuth();
-  const token = "123";
+  const auth = useAuth();
 
-  //importas y no hay periodo seleccionado
-
-  if (!token) return <Navigate to={fallbackPath} replace />;
+  if (!auth) return <Navigate to={fallbackPath} replace />;
 
   return <Element />;
 };

@@ -7,6 +7,7 @@ import UpdateDayMenu from "./screens/admin/UpdateDayMenu";
 import CategoriasView from "./screens/admin/CategoriasView";
 import ProductsByCategory from "./screens/ProductsByCategory";
 import Login from "./screens/Login";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 function App() {
   return (
     <Routes>
@@ -16,8 +17,17 @@ function App() {
         <Route path="login" element={<Login />} />
       </Route>
       <Route path="/admin" element={<AdminLayout />}>
-        <Route path="" element={<Dashboard />} index />
-        <Route path="categorias" element={<CategoriasView />} />
+        <Route
+          path=""
+          element={<ProtectedRoute element={Dashboard} fallbackPath="/login" />}
+          index
+        />
+        <Route
+          path="categorias"
+          element={
+            <ProtectedRoute element={CategoriasView} fallbackPath="/login" />
+          }
+        />
         {/* <Route path="/admin/categorias/agregar" element={<ProtectedRoute />} /> */}
 
         <Route path="/admin/actualizar-menu" element={<UpdateDayMenu />} />

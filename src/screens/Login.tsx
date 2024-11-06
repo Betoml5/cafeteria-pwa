@@ -28,6 +28,8 @@ const Login = () => {
             className="absolute top-1/2 -translate-y-1/2 left-2  w-6 h-6"
           />
           <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             type="text"
             placeholder="Usuario"
             className="p-2 rounded-md border border-gray-400 w-full pl-10"
@@ -40,6 +42,8 @@ const Login = () => {
             className="absolute top-1/2 -translate-y-1/2 left-2 w-6 h-6"
           />
           <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Contraseña"
             className="p-2 rounded-md border border-gray-400 w-full pl-10"

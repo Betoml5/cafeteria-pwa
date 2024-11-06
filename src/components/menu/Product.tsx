@@ -7,14 +7,16 @@ interface Props {
 
 const Product: FC<Props> = ({ product }) => {
   return (
-    <div className="flex flex-col  border border-gray-500/70 bg-secondary-color rounded-lg p-4 min-w-64 snap-center">
+    <div className="flex border gap-x-8 border-gray-500/70 bg-secondary-color rounded-lg  min-w-96 max-w-96 ">
       <img
-        className="w-24 h-24 self-center"
+        className={`w-1/2  h-full object-cover ${
+          !product.disponible && "filter grayscale"
+        }`}
         src={`https://pwabrd.labsystec.net/producto/${product.id}.webp`}
         alt={product.nombre}
       />
-      <h3 className="text-2xl">{product.nombre}</h3>
-      <div className="flex justify-between mt-4">
+      <div className="flex flex-col justify-center  w-1/2  mt-4">
+        <h3 className="text-2xl mb-4">{product.nombre}</h3>
         <p>
           {product.disponible ? (
             <span className="text-green-500 text-xl">Disponible</span>
@@ -22,7 +24,7 @@ const Product: FC<Props> = ({ product }) => {
             <span className="text-red-500 text-xl">Agotado</span>
           )}
         </p>
-        <p className="text-green-700 font-bold text-2xl">
+        <p className="text-green-700 font-bold text-2xl my-4">
           ${product.precio.toFixed(2)}
         </p>
       </div>

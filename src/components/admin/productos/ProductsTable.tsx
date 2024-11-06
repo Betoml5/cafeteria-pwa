@@ -60,7 +60,7 @@ const ProductsTable: FC<Props> = ({ productos, onAdd, onEdit, onDelete }) => {
           title="Eliminar producto"
         >
           <DeleteProductoForm
-            setSelectedProduct={setSelectedProduct}
+            onClose={() => setSelectedProduct(null)}
             producto={selectedProduct as IProducto}
           />
         </Modal>

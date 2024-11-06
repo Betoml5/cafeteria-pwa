@@ -49,6 +49,7 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
         ...data,
         ImagenBase64: image,
       };
+      console.log(dto);
       mutation.updateMutation.mutate(dto);
     } catch (error: any) {
       console.log(error);
@@ -129,11 +130,7 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
           <label className="label m-0" htmlFor="disponible">
             Disponible
           </label>
-          <input
-            type="checkbox"
-            id="disponible"
-            {...register("disponible", { required: true })}
-          />
+          <input type="checkbox" id="disponible" {...register("disponible")} />
         </div>
         {imagePreview && (
           <img

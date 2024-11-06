@@ -13,14 +13,17 @@ const Categories = () => {
     );
 
   return (
-    <div className="flex flex-wrap  gap-x-1 lg:gap-x-2">
+    <>
       {categorias.data?.map((categoria) => (
-        <Link to="#" className="flex flex-col items-center">
-          <div className="flex items-center bg-white p-4 rounded-full border border-gray-700/30">
+        <Link
+          to={`categoria?query=${categoria.nombre.replace(/\s/g, "-")}`}
+          className="flex flex-col items-center"
+        >
+          <div className="flex items-center bg-white p-4 rounded-full border border-gray-700/30 lg:p-6">
             <img
               src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp`}
               alt=""
-              className="w-8 h-8 object-contain lg:w-16 lg:h-16"
+              className="w-8 h-8 object-contain lg:w-20 lg:h-20"
             />
           </div>
           <p className="text-center">{categoria.nombre}</p>
@@ -71,7 +74,7 @@ const Categories = () => {
         </div>
         <p className="text-center font-semibold mt-2">Dulces</p>
       </Link> */}
-    </div>
+    </>
   );
 };
 

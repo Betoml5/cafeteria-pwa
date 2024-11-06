@@ -14,6 +14,7 @@ interface Props {
 const DayMenu: FC<Props> = ({ products }) => {
   return (
     <Swiper
+      className="h-[50vh]"
       loop
       spaceBetween={50}
       slidesPerView={1}
@@ -36,7 +37,7 @@ const DayMenu: FC<Props> = ({ products }) => {
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 50,
+          spaceBetween: 10,
         },
       }}
       pagination={{
@@ -48,15 +49,15 @@ const DayMenu: FC<Props> = ({ products }) => {
       {products.map(({ producto }) => (
         <SwiperSlide
           key={producto.id}
-          className="flex items-center justify-center"
+          className="flex items-center justify-center "
         >
-          <div className="flex items-center gap-x-4">
+          <div className="flex flex-col items-center gap-x-4 md:flex-row">
             <img
               src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
               alt={producto.nombre}
-              className="w-32 h-32 object-cover"
+              className="w-full h-64 object-contain "
             />
-            <div>
+            <div className="w-full">
               <p className="text-center text-lg font-semibold">
                 {producto.nombre}
               </p>

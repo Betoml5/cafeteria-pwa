@@ -10,6 +10,7 @@ export default defineConfig({
       base: "/",
       mode: "development",
       registerType: "autoUpdate",
+      strategies: "injectManifest",
       injectRegister: "auto",
       devOptions: {
         enabled: true,
@@ -17,9 +18,17 @@ export default defineConfig({
       },
       workbox: {
         //cacheConfig
+
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
+
         cleanupOutdatedCaches: true,
         sourcemap: true,
+      },
+
+      srcDir: "src",
+      filename: "sw.ts",
+      injectManifest: {
+        injectionPoint: undefined,
       },
       manifest: {
         name: "Cafetería TEC",

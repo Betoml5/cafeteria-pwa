@@ -4,7 +4,7 @@ import api from "../lib/api";
 class AuthService {
   static async login(username: string, password: string) {
     try {
-      const respone = await api.post("/auth/login", {
+      const respone = await api.post("/authentication", {
         username,
         password,
       });

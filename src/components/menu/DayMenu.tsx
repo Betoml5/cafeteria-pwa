@@ -18,8 +18,6 @@ const DayMenu: FC<Props> = ({ products }) => {
       loop
       spaceBetween={50}
       slidesPerView={1}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       scrollbar={{ draggable: true }}
       centeredSlides={true}
       autoplay={{

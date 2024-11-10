@@ -38,6 +38,7 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
       }`}
     >
       <div className="flex flex-col p-4">
+        <h3 className="text-center text-2xl font-bold">ITESRC</h3>
         <button className="self-end" onClick={() => setOpen(!open)}>
           <img src="/menu.png" alt="menu" />
         </button>
@@ -49,7 +50,7 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
             <Link to="/admin/categorias" onClick={handleCloseDrawer}>
               Categorías
             </Link>
-            <Link to="/admin/productos" onClick={handleCloseDrawer}>
+            <Link to="/admin" onClick={handleCloseDrawer}>
               Productos
             </Link>
             <Link to="/admin/actualizar-menu" onClick={handleCloseDrawer}>

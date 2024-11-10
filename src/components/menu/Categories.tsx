@@ -16,6 +16,7 @@ const Categories = () => {
     <>
       {categorias.data?.map((categoria) => (
         <Link
+          key={categoria.id}
           to={`categoria?query=${categoria.nombre.replace(/\s/g, "-")}`}
           className="flex flex-col items-center"
         >

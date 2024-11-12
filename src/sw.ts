@@ -96,23 +96,23 @@ self.addEventListener("install", (event: any) => {
 
 const estrategias: { [key: string]: (request: Request) => Promise<Response> } =
   {
-    "/api/categorias": cacheFirst,
-    "/api/productos": cacheFirst,
+    "/api/categorias": networkFirst,
+    "/api/productos": networkFirst,
     "/api/actualizar-menu": networkFirst,
   };
 
 self.addEventListener("fetch", (event: any) => {
   const { request } = event;
   // Solo maneja peticiones http(s), ignora chrome-extension://
-  if (request.url.startsWith("https")) {
-    const url: string = request.url;
-    const estrategia = estrategias[url];
-    if (estrategia) {
-      event.respondWith(estrategia(request));
-    } else {
-      event.respondWith(networkFirst(request));
-    }
+  // if (request.url.startsWith("https ")) {
+  const url: string = request.url;
+  const estrategia = estrategias[url];
+  if (estrategia) {
+    event.respondWith(estrategia(request));
+  } else {
+    event.respondWith(networkFirst(request));
   }
+  // }
 });
 
 self.addEventListener("activate", (event: any) => {

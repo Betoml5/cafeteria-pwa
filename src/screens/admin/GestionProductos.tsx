@@ -84,7 +84,7 @@ const GestionProductos = () => {
           <p className=" items-center hidden  md:flex">|</p>
           <div className="flex items-center flex-wrap gap-2">
             {categorias.data?.map((item) => (
-              <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
+              <p className="px-4 py-1 bg-white rounded-md border border-gray-400 cursor-pointer">
                 {item.nombre}
               </p>
             ))}
@@ -101,7 +101,16 @@ const GestionProductos = () => {
           ?.filter((categoria) => categoria.productos.length > 0)
           .map((categoria) => (
             <div key={categoria.id}>
-              <p>{categoria.nombre}</p>
+              <p
+                onClick={() => {
+                  const elemt = document.getElementById(categoria.nombre);
+                  if (elemt) {
+                    elemt.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                {categoria.nombre}
+              </p>
 
               <div className="flex dayMenu">
                 {categoria.productos.map((producto: IProducto) => (

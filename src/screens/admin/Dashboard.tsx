@@ -92,7 +92,7 @@ const Dashboard = () => {
           <div className="flex items-center flex-wrap gap-2">
             {categorias.data?.map((item) => (
               <p
-                className="px-4 py-1 bg-white rounded-md border border-gray-400"
+                className="px-4 py-1 bg-white rounded-md border border-gray-400 cursor-pointer"
                 onClick={() => {
                   const elemt = document.getElementById(item.nombre);
                   if (elemt) {

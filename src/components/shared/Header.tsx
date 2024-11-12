@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex justify-between items-center p-4 bg-primary-color text-white">
+      <header className="flex justify-between items-center p-4 bg-primary-color text-white  shadow ">
         <Link to="/" className="flex items-center gap-x-2">
           <h1 className="text-2xl font-bold">ITESRC</h1>
         </Link>

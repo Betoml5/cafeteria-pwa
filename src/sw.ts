@@ -36,21 +36,21 @@ const checkLastUpdates = async () => {
   localStorage.setItem("lastCategoriesUpdate", response.categorias);
 };
 
-const cacheFirst = async (request: Request): Promise<Response> => {
-  try {
-    const cache = await caches.open(CACHE_NAME);
-    const matching = await cache.match(request);
-    if (matching) return matching;
-    // If we don't have a match, we need to fetch the resource from the network
-    const response = await fetch(request);
-    // Once we have the response, we need to add it to the cache
-    cache.put(request, response.clone());
-    return response;
-  } catch (error: any) {
-    console.log(error);
-    return new Response("Error", { status: 500 });
-  }
-};
+// const cacheFirst = async (request: Request): Promise<Response> => {
+//   try {
+//     const cache = await caches.open(CACHE_NAME);
+//     const matching = await cache.match(request);
+//     if (matching) return matching;
+//     // If we don't have a match, we need to fetch the resource from the network
+//     const response = await fetch(request);
+//     // Once we have the response, we need to add it to the cache
+//     cache.put(request, response.clone());
+//     return response;
+//   } catch (error: any) {
+//     console.log(error);
+//     return new Response("Error", { status: 500 });
+//   }
+// };
 
 async function networkFirst(request: Request): Promise<Response> {
   const cache = await caches.open(CACHE_NAME);

@@ -1,23 +1,20 @@
 import { useState } from "react";
-
-import useProductos from "../../hooks/productos/useProductos";
 import useCategorias from "../../hooks/categorias/useCategorias";
-import Loader from "../../components/shared/Loader";
 import useMenuDia from "../../hooks/menu/useMenuDia";
-import Product from "../../components/admin/productos/Product";
+import useProductos from "../../hooks/productos/useProductos";
+import Loader from "../../components/shared/Loader";
 import Modal from "../../components/shared/Modal";
+import { MODALS_NAMES } from "../../constants";
 import CreateProductoForm from "../../components/admin/forms/CreateProductoForm";
 import DeleteProductoForm from "../../components/admin/forms/DeleteProductoForm";
-import UpdateProductoForm from "../../components/admin/forms/UpdateProductoForm";
-import { MODALS_NAMES } from "../../constants";
 import { IProducto } from "../../types";
-import useProductosMutation from "../../hooks/productos/useProductosMutation";
+import UpdateProductoForm from "../../components/admin/forms/UpdateProductoForm";
+import Product from "../../components/admin/productos/Product";
 
-const Dashboard = () => {
+const GestionProductos = () => {
   const productos = useProductos();
   const categorias = useCategorias();
   const menu = useMenuDia();
-  const { updateIsAvaliableMutation } = useProductosMutation();
 
   const [selectedProducto, setSelectedProducto] = useState<IProducto | null>(
     null
@@ -31,10 +28,6 @@ const Dashboard = () => {
       </div>
     );
   }
-
-  const productosAgotados = productos.data?.filter(
-    (producto) => !producto.disponible
-  );
 
   const onClose = () => {
     setSelectedProducto(null);
@@ -79,7 +72,7 @@ const Dashboard = () => {
 
       <button
         onClick={() => setAction(MODALS_NAMES.ADD_PRODUCT)}
-        className="absolute z-50  bottom-2 right-4 p-2 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
+        className="absolute bottom-2 right-4 p-2 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
       >
         <img src="/add.svg" alt="add" className="w-10 h-10 lg:w-12 lg:h-12" />
       </button>
@@ -91,15 +84,7 @@ const Dashboard = () => {
           <p className=" items-center hidden  md:flex">|</p>
           <div className="flex items-center flex-wrap gap-2">
             {categorias.data?.map((item) => (
-              <p
-                className="px-4 py-1 bg-white rounded-md border border-gray-400"
-                onClick={() => {
-                  const elemt = document.getElementById(item.nombre);
-                  if (elemt) {
-                    elemt.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
+              <p className="px-4 py-1 bg-white rounded-md border border-gray-400">
                 {item.nombre}
               </p>
             ))}
@@ -107,64 +92,37 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <h3 className="col-span-full text-2xl font-semibold my-4">Inicio</h3>
+      <h3 className="col-span-full text-2xl font-semibold my-4">
+        Gestión de productos
+      </h3>
 
       <div className="col-span-full">
         {categorias.data
-          ?.filter((c) => c.productos.some((p) => p.disponible))
           ?.filter((categoria) => categoria.productos.length > 0)
           .map((categoria) => (
             <div key={categoria.id}>
               <p>{categoria.nombre}</p>
 
-              <div className="flex dayMenu" id={categoria.nombre}>
-                {categoria.productos
-                  .filter((producto) => producto.disponible)
-                  .map((producto: IProducto) => (
-                    <Product
-                      showContextMenu={false}
-                      onClick={() => {
-                        updateIsAvaliableMutation.mutate({
-                          id: producto.id,
-                          isAvaliable: !producto.disponible,
-                        });
-                      }}
-                      key={producto.id}
-                      producto={producto}
-                      onContextMenu={() => setSelectedProducto(producto)}
-                      onDelete={() => setAction(MODALS_NAMES.DELETE_PRODUCT)}
-                      onEdit={() => {
-                        setAction(MODALS_NAMES.EDIT_PRODUCT);
-                      }}
-                    />
-                  ))}
+              <div className="flex dayMenu">
+                {categoria.productos.map((producto: IProducto) => (
+                  <Product
+                    showContextMenu
+                    onClick={() => {}}
+                    key={producto.id}
+                    producto={producto}
+                    onContextMenu={() => setSelectedProducto(producto)}
+                    onDelete={() => setAction(MODALS_NAMES.DELETE_PRODUCT)}
+                    onEdit={() => {
+                      setAction(MODALS_NAMES.EDIT_PRODUCT);
+                    }}
+                  />
+                ))}
               </div>
             </div>
           ))}
-        <p>Agotados</p>
-        <div className="flex flex-wrap">
-          {productosAgotados?.map((producto) => (
-            <Product
-              showContextMenu={false}
-              onClick={() => {
-                updateIsAvaliableMutation.mutate({
-                  id: producto.id,
-                  isAvaliable: !producto.disponible,
-                });
-              }}
-              key={producto.id}
-              producto={producto}
-              onContextMenu={() => setSelectedProducto(producto)}
-              onDelete={() => setAction(MODALS_NAMES.DELETE_PRODUCT)}
-              onEdit={() => {
-                setAction(MODALS_NAMES.EDIT_PRODUCT);
-              }}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default GestionProductos;

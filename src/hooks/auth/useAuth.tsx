@@ -1,5 +1,8 @@
+import useLocalStorage from "../shared/useLocalStorage";
+
 const useAuth = () => {
-  return true;
+  const [token] = useLocalStorage("token", null);
+  return token;
 };
 
 export default useAuth;

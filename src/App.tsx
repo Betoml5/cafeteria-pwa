@@ -8,6 +8,7 @@ import CategoriasView from "./screens/admin/CategoriasView";
 import ProductsByCategory from "./screens/ProductsByCategory";
 import Login from "./screens/Login";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
+import GestionProductos from "./screens/admin/GestionProductos";
 function App() {
   return (
     <Routes>
@@ -28,9 +29,19 @@ function App() {
             <ProtectedRoute element={CategoriasView} fallbackPath="/login" />
           }
         />
-        {/* <Route path="/admin/categorias/agregar" element={<ProtectedRoute />} /> */}
+        <Route
+          path="gestion-productos"
+          element={
+            <ProtectedRoute element={GestionProductos} fallbackPath="/login" />
+          }
+        />
 
-        <Route path="/admin/actualizar-menu" element={<UpdateDayMenu />} />
+        <Route
+          path="/admin/actualizar-menu"
+          element={
+            <ProtectedRoute element={UpdateDayMenu} fallbackPath="/login" />
+          }
+        />
       </Route>
     </Routes>
   );

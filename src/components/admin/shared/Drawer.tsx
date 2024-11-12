@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/auth/useAuth";
+import useLocalStorage from "../../../hooks/shared/useLocalStorage";
 
 interface DrawerProps {
   open: boolean;
@@ -10,6 +11,12 @@ interface DrawerProps {
 
 const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
   const auth = useAuth();
+  const [, setToken] = useLocalStorage("token", null);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/login");
+    setToken(null);
+  };
 
   const drawerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -50,13 +57,19 @@ const Drawer: FC<DrawerProps> = ({ open, setOpen }) => {
             <Link to="/admin/categorias" onClick={handleCloseDrawer}>
               Categorías
             </Link>
-            <Link to="/admin" onClick={handleCloseDrawer}>
+            <Link to="/admin/gestion-productos" onClick={handleCloseDrawer}>
               Productos
             </Link>
             <Link to="/admin/actualizar-menu" onClick={handleCloseDrawer}>
               Menú del día
             </Link>
-            <button className="mt-4 text-left" onClick={handleCloseDrawer}>
+            <button
+              className="mt-4 text-left"
+              onClick={() => {
+                handleLogout();
+                handleCloseDrawer();
+              }}
+            >
               Cerrar sesión
             </button>
           </div>

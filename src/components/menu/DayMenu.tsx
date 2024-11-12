@@ -73,8 +73,8 @@ const DayMenu: FC<Props> = ({ products }) => {
       modules={[Navigation, Pagination, Autoplay]}
     >
       {productos
-        .filter((p) => p.producto.disponible)
-        .map(({ producto }) => (
+        ?.filter((p) => p.producto.disponible)
+        ?.map(({ producto }) => (
           <SwiperSlide
             key={producto.id}
             className="flex items-center justify-center "

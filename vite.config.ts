@@ -11,7 +11,7 @@ export default defineConfig({
       mode: "development",
       registerType: "prompt",
       strategies: "injectManifest",
-      injectRegister: "auto",
+      injectRegister: "script",
       // devOptions: {
       //   enabled: true,
       //   type: "module",

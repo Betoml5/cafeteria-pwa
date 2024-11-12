@@ -36,21 +36,21 @@ const checkLastUpdates = async () => {
   localStorage.setItem("lastCategoriesUpdate", response.categorias);
 };
 
-// const cacheFirst = async (request: Request): Promise<Response> => {
-//   try {
-//     const cache = await caches.open(CACHE_NAME);
-//     const matching = await cache.match(request);
-//     if (matching) return matching;
-//     // If we don't have a match, we need to fetch the resource from the network
-//     const response = await fetch(request);
-//     // Once we have the response, we need to add it to the cache
-//     cache.put(request, response.clone());
-//     return response;
-//   } catch (error: any) {
-//     console.log(error);
-//     return new Response("Error", { status: 500 });
-//   }
-// };
+const cacheFirst = async (request: Request): Promise<Response> => {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const matching = await cache.match(request);
+    if (matching) return matching;
+    // If we don't have a match, we need to fetch the resource from the network
+    const response = await fetch(request);
+    // Once we have the response, we need to add it to the cache
+    cache.put(request, response.clone());
+    return response;
+  } catch (error: any) {
+    console.log(error);
+    return new Response("Error", { status: 500 });
+  }
+};
 
 async function networkFirst(request: Request): Promise<Response> {
   const cache = await caches.open(CACHE_NAME);
@@ -73,38 +73,37 @@ async function networkFirst(request: Request): Promise<Response> {
   }
 }
 
-self.addEventListener("install", (event: any) => {
-  console.log("[Service worker installed] ");
-  const extendableEvent = event as ExtendableEvent;
-  extendableEvent.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/login",
-        "/admin",
-        "/admin/categorias",
-        "/admin/actualizar-menu",
-        "/more.png",
-      ]);
-    })
-  );
-});
+// self.addEventListener("install", (event: any) => {
+//   console.log("[Service worker installed] ");
+//   const extendableEvent = event as ExtendableEvent;
+//   extendableEvent.waitUntil(
+//     caches.open(CACHE_NAME).then((cache) => {
+//       return cache.addAll([
+//         "/",
+//         "/index.html",
+//         "/login",
+//         "/admin",
+//         "/admin/categorias",
+//         "/admin/actualizar-menu",
+//         "/more.png",
+//       ]);
+//     })
+//   );
+// });
 
 //Crear un diccionario para saber cual es la estrategia de caché que se va a utilizar
 //para cada ruta
 
 const estrategias: { [key: string]: (request: Request) => Promise<Response> } =
   {
-    "/api/categorias": networkFirst,
-    "/api/productos": networkFirst,
+    "/api/categorias": cacheFirst,
+    "/api/productos": cacheFirst,
     "/api/actualizar-menu": networkFirst,
   };
 
 self.addEventListener("fetch", (event: any) => {
   const { request } = event;
   // Solo maneja peticiones http(s), ignora chrome-extension://
-  // if (request.url.startsWith("https ")) {
   const url: string = request.url;
   const estrategia = estrategias[url];
   if (estrategia) {
@@ -112,7 +111,6 @@ self.addEventListener("fetch", (event: any) => {
   } else {
     event.respondWith(networkFirst(request));
   }
-  // }
 });
 
 self.addEventListener("activate", (event: any) => {

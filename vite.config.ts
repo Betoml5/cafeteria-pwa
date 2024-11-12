@@ -9,9 +9,9 @@ export default defineConfig({
     VitePWA({
       base: "/",
       mode: "development",
-      registerType: "autoUpdate",
+      registerType: "prompt",
       strategies: "injectManifest",
-      injectRegister: "inline",
+      injectRegister: "auto",
       // devOptions: {
       //   enabled: true,
       //   type: "module",
@@ -35,7 +35,6 @@ export default defineConfig({
         short_name: "Cafetería TEC",
         description: "Una aplicación web para la Cafetería TEC",
         theme_color: "#ffffff",
-        display: "standalone",
         icons: [
           {
             src: "black-logo.png",

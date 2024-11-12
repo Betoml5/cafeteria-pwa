@@ -97,7 +97,6 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
         )}
         <div className="flex justify-center  mt-10">
           <button className="btn mr-2">Guardar</button>
-          <button className="btn bg-gray-500">Cancelar</button>
         </div>
       </form>
     </div>

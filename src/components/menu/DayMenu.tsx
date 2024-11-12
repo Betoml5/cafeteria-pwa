@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { IMenuProduct } from "../../types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -7,11 +7,39 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import connection from "../../lib/hub";
 interface Props {
   products: IMenuProduct[];
 }
 
 const DayMenu: FC<Props> = ({ products }) => {
+  const [productos, setProductos] = useState(products);
+  useEffect(() => {
+    // Escucha el evento de disponibilidad
+    connection.on("disponibilidad", (data) => {
+      console.log("data", data);
+      console.log(productos.find((p) => p.idProducto === data.id));
+      setProductos((prevProducts) => {
+        return prevProducts.map((product) =>
+          product.idProducto === data.id
+            ? {
+                ...product,
+                producto: {
+                  ...product.producto,
+                  disponible: data.disponibilidad,
+                },
+              }
+            : product
+        );
+      });
+    });
+
+    // Limpia el evento cuando el componente se desmonte
+    return () => {
+      connection.off("disponibilidad");
+    };
+  }, [productos]);
+
   return (
     <Swiper
       className="h-[50vh]"
@@ -30,7 +58,7 @@ const DayMenu: FC<Props> = ({ products }) => {
           spaceBetween: 20,
         },
         768: {
-          slidesPerView: 3,
+          slidesPerView: 2,
           spaceBetween: 40,
         },
         1024: {
@@ -44,28 +72,30 @@ const DayMenu: FC<Props> = ({ products }) => {
       navigation
       modules={[Navigation, Pagination, Autoplay]}
     >
-      {products.map(({ producto }) => (
-        <SwiperSlide
-          key={producto.id}
-          className="flex items-center justify-center "
-        >
-          <div className="flex flex-col items-center gap-x-4 md:flex-row">
-            <img
-              src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
-              alt={producto.nombre}
-              className="w-full h-64 object-contain "
-            />
-            <div className="w-full">
-              <p className="text-center text-lg font-semibold">
-                {producto.nombre}
-              </p>
-              <p className="text-center text-lg font-semibold">
-                ${producto.precio.toFixed(2)}
-              </p>
+      {productos
+        .filter((p) => p.producto.disponible)
+        .map(({ producto }) => (
+          <SwiperSlide
+            key={producto.id}
+            className="flex items-center justify-center "
+          >
+            <div className="flex flex-col items-center gap-x-4 md:flex-row">
+              <img
+                src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
+                alt={producto.nombre}
+                className="w-full h-64 object-contain "
+              />
+              <div className="w-full">
+                <p className="text-center text-lg font-semibold">
+                  {producto.nombre}
+                </p>
+                <p className="text-center text-lg font-semibold">
+                  ${producto.precio.toFixed(2)}
+                </p>
+              </div>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };

@@ -1,9 +1,25 @@
 import { Link, Outlet } from "react-router-dom";
 import Drawer from "../components/admin/shared/Drawer";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useOnlineStatus from "../hooks/shared/useOnlineStatus";
 
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
+  const isOnline = useOnlineStatus();
+
+  const pRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (isOnline) {
+      console.log(isOnline);
+      pRef.current?.classList.add("bg-green-600");
+      pRef.current?.classList.remove("hidden");
+      setTimeout(() => {
+        console.log("setTimeout");
+        pRef.current?.classList.add("hidden");
+      }, 5000);
+    }
+  }, [isOnline]);
 
   return (
     <>
@@ -16,6 +32,12 @@ const AdminLayout = () => {
         </button>
         <Drawer open={open} setOpen={setOpen} />
       </header>
+      <div className={`text-white   text-center ${!isOnline && "bg-red-600"}`}>
+        {!isOnline && <p className="py-2">No estas conectado a internet</p>}
+        <p ref={pRef} className="hidden py-2">
+          Estas conectado a internet
+        </p>
+      </div>
       <Outlet />
     </>
   );

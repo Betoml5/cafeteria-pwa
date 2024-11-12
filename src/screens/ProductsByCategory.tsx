@@ -5,6 +5,7 @@ import "../lib/initSignalRConnection";
 import connection from "../lib/hub";
 import { useEffect, useState } from "react";
 import { IProducto } from "../types";
+import Loader from "../components/shared/Loader";
 
 const ProductsByCategory = () => {
   const [searchParams] = useSearchParams();
@@ -40,12 +41,13 @@ const ProductsByCategory = () => {
     };
   }, [category]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
   if (isError) return <div>Error...</div>;
+
   return (
     <div className="p-4 ">
-      <Link to="/" className="text-primary-color text-xl">
-        Volver
+      <Link to="/" className="bg-black  text-xl">
+        <img src="/arrow-back.svg" alt="arrow-back" className="w-10 h-10" />
       </Link>
       <h2 className="text-4xl font-semibold mb-4">
         {category?.replace(/-/g, " ")}

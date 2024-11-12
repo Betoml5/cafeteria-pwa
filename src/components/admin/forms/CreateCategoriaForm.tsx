@@ -82,7 +82,6 @@ const CreateCategoriaForm = () => {
           onChange={handleImageChange}
         />
         <div className="flex justify-center  mt-10">
-          <button className="btn bg-gray-500 mr-2">Cancelar</button>
           <button className="btn">Agregar</button>
         </div>
       </form>

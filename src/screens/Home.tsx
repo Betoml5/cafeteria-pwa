@@ -25,7 +25,7 @@ const Home = () => {
         </div>
         <div className="my-4">
           <h1 className="text-left font-bold text-3xl my-4">Categorías</h1>
-          <div className="flex flex-wrap justify-center  gap-x-1 lg:gap-x-2 md:justify-start">
+          <div className="flex flex-wrap   gap-x-1 lg:gap-x-2 md:justify-start">
             <Categories />
           </div>
         </div>

@@ -9,13 +9,13 @@ export default defineConfig({
     VitePWA({
       base: "/",
       mode: "development",
-      registerType: "autoUpdate",
+      registerType: "prompt",
       strategies: "injectManifest",
       injectRegister: "auto",
-      devOptions: {
-        enabled: true,
-        type: "module",
-      },
+      // devOptions: {
+      //   enabled: true,
+      //   type: "module",
+      // },
       workbox: {
         //cacheConfig
 

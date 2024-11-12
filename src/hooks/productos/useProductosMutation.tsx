@@ -26,7 +26,7 @@ const useProductosMutation = () => {
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {
-      toast.error("Error al crear producto");
+      toast.error("Error al actualizar producto");
     },
   });
 
@@ -59,7 +59,7 @@ const useProductosMutation = () => {
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {
-      toast.error("Error al crear producto");
+      toast.error("Error al actualizar el producto");
     },
   });
 

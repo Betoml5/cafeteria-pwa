@@ -104,7 +104,7 @@ const estrategias: { [key: string]: (request: Request) => Promise<Response> } =
 self.addEventListener("fetch", (event: any) => {
   const { request } = event;
   // Solo maneja peticiones http(s), ignora chrome-extension://
-  if (request.url.startsWith("http")) {
+  if (request.url.startsWith("https")) {
     const url: string = request.url;
     const estrategia = estrategias[url];
     if (estrategia) {

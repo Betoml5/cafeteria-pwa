@@ -46,12 +46,14 @@ const ProductsByCategory = () => {
 
   return (
     <div className="p-4 ">
-      <Link to="/" className="bg-black  text-xl">
-        <img src="/arrow-back.svg" alt="arrow-back" className="w-10 h-10" />
-      </Link>
-      <h2 className="text-4xl font-semibold mb-4">
-        {category?.replace(/-/g, " ")}
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-4xl font-semibold ">
+          {category?.replace(/-/g, " ")}
+        </h2>
+        <Link to="/" className=" text-xl">
+          Volver
+        </Link>
+      </div>
       <div className="flex flex-wrap gap-4 justify-center md:justify-start  ">
         {products?.map((producto) => (
           <Product product={producto} key={producto.id} />

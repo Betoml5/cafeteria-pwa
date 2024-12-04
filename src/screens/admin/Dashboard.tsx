@@ -83,15 +83,16 @@ const Dashboard = () => {
       >
         <img src="/add.svg" alt="add" className="w-10 h-10 lg:w-12 lg:h-12" />
       </button>
-      <div className="col-span-12 md:col-span-8">
+      <div className="col-span-12 md:col-span-8 sticky top-0 z-10 pt-4">
         <div className="flex flex-col gap-x-2 md:flex-row ">
           <p className="flex items-center justify-center mb-2 px-4 py-1 bg-white rounded-md border border-gray-400 md:m-0">
             Inicio
           </p>
           <p className=" items-center hidden  md:flex">|</p>
-          <div className="flex items-center flex-wrap gap-2">
+          <div className="flex items-center flex-wrap gap-2  ">
             {categorias.data?.map((item) => (
               <p
+                key={item.id}
                 className="px-4 py-1 bg-white rounded-md border border-gray-400 cursor-pointer"
                 onClick={() => {
                   const elemt = document.getElementById(item.nombre);

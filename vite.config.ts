@@ -8,28 +8,16 @@ export default defineConfig({
     react(),
     VitePWA({
       base: "/",
-      mode: "development",
-      registerType: "prompt",
+      mode: "production",
+      registerType: "autoUpdate",
       strategies: "injectManifest",
       injectRegister: "auto",
-      // devOptions: {
-      //   enabled: true,
-      //   type: "module",
-      // },
-      workbox: {
-        //cacheConfig
-
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
-
-        cleanupOutdatedCaches: true,
-        sourcemap: true,
+      devOptions: {
+        enabled: true,
+        type: "module",
       },
-
       srcDir: "src",
       filename: "sw.ts",
-      injectManifest: {
-        injectionPoint: undefined,
-      },
       manifest: {
         name: "Cafetería TEC",
         short_name: "Cafetería TEC",

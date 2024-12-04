@@ -20,7 +20,7 @@ const Home = () => {
       <div className="p-4">
         {/* <Categories /> */}
         <h1 className="text-center font-bold text-5xl my-4">Menú del dia</h1>
-        <div className="mx-auto ">
+        <div className="mx-auto bg-primary-color rounded-md shadow-2xl">
           <DayMenu products={menu.data as IMenuProduct[]} />
         </div>
         <div className="my-4">

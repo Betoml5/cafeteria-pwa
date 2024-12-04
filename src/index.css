@@ -66,17 +66,17 @@ html {
 }
 
 .swiper-button-prev {
-  color: #000;
+  color: #fff;
   transform: scale(0.5);
 }
 
 .swiper-button-next {
-  color: #000;
+  color: #fff;
   transform: scale(0.5);
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #000 !important;
+  background-color: #fff !important;
 }
 
 @tailwind utilities;

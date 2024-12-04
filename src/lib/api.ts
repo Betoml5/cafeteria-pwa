@@ -10,11 +10,14 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   try {
     const token = JSON.parse(localStorage.getItem("token") || "");
+    if (!token || token === "") throw new Error("Unauthorized");
     console.log(token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-  } catch (error) {console.log(error)}
+  } catch (error) {
+    console.log(error);
+  }
   return config;
 });
 

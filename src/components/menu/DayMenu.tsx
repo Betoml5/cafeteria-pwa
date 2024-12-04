@@ -44,7 +44,7 @@ const DayMenu: FC<Props> = ({ products }) => {
     <Swiper
       className="h-[50vh]"
       loop
-      spaceBetween={50}
+      spaceBetween={500}
       slidesPerView={1}
       scrollbar={{ draggable: true }}
       centeredSlides={true}
@@ -52,20 +52,20 @@ const DayMenu: FC<Props> = ({ products }) => {
         delay: 2500,
         disableOnInteraction: false,
       }}
-      breakpoints={{
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 40,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 10,
-        },
-      }}
+      // breakpoints={{
+      //   640: {
+      //     slidesPerView: 2,
+      //     spaceBetween: 20,
+      //   },
+      //   768: {
+      //     slidesPerView: 2,
+      //     spaceBetween: 40,
+      //   },
+      //   1024: {
+      //     slidesPerView: 3,
+      //     spaceBetween: 10,
+      //   },
+      // }}
       pagination={{
         clickable: true,
       }}
@@ -79,17 +79,17 @@ const DayMenu: FC<Props> = ({ products }) => {
             key={producto.id}
             className="flex items-center justify-center "
           >
-            <div className="flex flex-col items-center gap-x-4 md:flex-row">
+            <div className="flex flex-col items-center gap-x-4   md:flex-row">
               <img
                 src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
                 alt={producto.nombre}
                 className="w-full h-64 object-contain "
               />
-              <div className="w-full">
-                <p className="text-center text-lg font-semibold">
+              <div className="bg-white rounded-md mt-4  w-full p-4">
+                <p className=" text-2xl font-semibold mb-2">
                   {producto.nombre}
                 </p>
-                <p className="text-center text-lg font-semibold">
+                <p className="text-center text-white rounded-md text-3xl font-semibold bg-green-600 w-fit px-4 py-2">
                   ${producto.precio.toFixed(2)}
                 </p>
               </div>

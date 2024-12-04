@@ -18,10 +18,12 @@ const ProductsByCategory = () => {
     // Filtra los productos cuando se cargan los datos
     if (data) {
       setProducts(
-        data.filter((product) => product.categoria.nombre === category)
+        data.filter(
+          (product) => product.categoria.nombre === category?.replace(/-/g, " ")
+        )
       );
     }
-  }, [data, category]);
+  }, []);
 
   useEffect(() => {
     // Escucha el evento de disponibilidad

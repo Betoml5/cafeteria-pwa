@@ -35,6 +35,7 @@ const Categoria: FC<Props> = ({
     });
     onCtx();
   };
+
   return (
     <>
       <div
@@ -44,7 +45,7 @@ const Categoria: FC<Props> = ({
         <div>
           <img
             className="w-32 h-28 object-contain"
-            src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp`}
+            src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp?lastUpdate=${categoria.lastUpdate}`}
             alt=""
           />
         </div>

@@ -22,7 +22,7 @@ const Categories = () => {
         >
           <div className="flex items-center bg-white p-4 rounded-full border border-gray-700/30 lg:p-6">
             <img
-              src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp`}
+              src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp?lastUpdate=${categoria.lastUpdate}`}
               alt=""
               className="w-8 h-8 object-contain lg:w-20 lg:h-20"
             />

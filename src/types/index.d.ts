@@ -5,11 +5,13 @@ export interface IProducto {
   precio: number;
   idCategoria: number;
   disponible: boolean;
+  lastUpdate: string;
 }
 export interface ICategoria {
   productos: Producto[];
   id: number;
   nombre: string;
+  lastUpdate: string;
 }
 
 export interface IMenuProduct {

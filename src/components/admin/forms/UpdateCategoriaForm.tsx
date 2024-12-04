@@ -51,7 +51,7 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
 
   useEffect(() => {
     setImagePreview(
-      `https://pwabrd.labsystec.net/categorias/${categoria?.id}.webp`
+      `https://pwabrd.labsystec.net/categorias/${categoria?.id}.webp?lastUpdate=${categoria?.lastUpdate}`
     );
   }, [categoria?.id]);
 

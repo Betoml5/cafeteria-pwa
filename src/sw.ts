@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CACHE_NAME } from "./constants/cache";
 import CategoriaService from "./services/Categoria";
@@ -12,7 +13,6 @@ setInterval(() => {
   checkLastUpdates();
 }, cacheExpiration);
 
-// Comprueba si los datos de productos y categorías han cambiado
 const checkLastUpdates = async () => {
   const response = await UpdateService.lastModified();
 
@@ -37,67 +37,93 @@ const checkLastUpdates = async () => {
   localStorage.setItem("lastCategoriesUpdate", response.categorias);
 };
 
-// Estrategia de caché para recursos estáticos
-const cacheFirst = async (request: Request): Promise<Response> => {
-  try {
-    const cache = await caches.open(CACHE_NAME);
-    const matching = await cache.match(request);
-    if (matching) return matching;
+// const cacheFirst = async (request: Request): Promise<Response> => {
+//   try {
+//     const cache = await caches.open(CACHE_NAME);
+//     const matching = await cache.match(request);
+//     if (matching) return matching;
+//     // If we don't have a match, we need to fetch the resource from the network
+//     const response = await fetch(request);
+//     // Once we have the response, we need to add it to the cache
+//     cache.put(request, response.clone());
+//     return response;
+//   } catch (error: any) {
+//     console.log(error);
+//     return new Response("Error", { status: 500 });
+//   }
+// };
 
-    const response = await fetch(request);
-    cache.put(request, response.clone());
-    return response;
-  } catch (error: any) {
-    console.error("Error en cacheFirst:", error);
-    return new Response("Error en cacheFirst", { status: 500 });
-  }
-};
-
-// Estrategia de caché para recursos dinámicos
-const networkFirst = async (request: Request): Promise<Response> => {
+async function networkFirst(request: Request): Promise<Response> {
   const cache = await caches.open(CACHE_NAME);
   try {
-    const response = await fetch(request);
-    if (response.ok) {
-      cache.put(request, response.clone());
+    const respuesta = await fetch(request);
+    if (respuesta.ok) {
+      cache.put(request, respuesta.clone());
     }
-    return response;
+    return respuesta;
   } catch (error: any) {
-    console.error("Error en networkFirst:", error);
-    const cachedResponse = await cache.match(request);
-    return (
-      cachedResponse || new Response("No disponible en caché", { status: 503 })
-    );
+    console.log(error);
+    const response = await cache.match(request);
+    if (response) {
+      return response;
+    } else {
+      return new Response("Recurso no disponible en caché ni en la red", {
+        status: 503,
+      });
+    }
   }
-};
+}
 
-// Diccionario para rutas y estrategias de caché
-const estrategias: { [key: string]: (request: Request) => Promise<Response> } =
-  {
-    "/api/categorias": cacheFirst,
-    "/api/productos": cacheFirst,
-    "/api/actualizar-menu": networkFirst,
-  };
+async function networkOnly(request: Request): Promise<Response> {
+  try {
+    const respuesta = await fetch(request);
+    return respuesta;
+  } catch (error: any) {
+    return new Response("Recurso no disponible en caché ni en la red", {
+      status: 503,
+    });
+  }
+}
 
-// Instalación del SW y caché de recursos estáticos iniciales
 self.addEventListener("install", (event: any) => {
-  console.log("[Service Worker] Instalado");
-  const resourcesToCache = [
-    "/",
-    "/index.html",
-    "/login",
-    "/admin",
-    "/src/main.tsx", // Asegúrate de que el archivo main.tsx esté en caché
-    "/admin/categorias",
-    "/admin/actualizar-menu",
-    "/more.png",
-  ];
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(resourcesToCache))
+  console.log("[Service worker installed] ");
+  const extendableEvent = event as ExtendableEvent;
+  extendableEvent.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll([
+        "/",
+        "/login",
+        "/admin",
+        "/admin/categorias",
+        "/admin/actualizar-menu",
+        "/more.png",
+      ]);
+    })
   );
 });
 
-// Activa el SW y elimina cachés viejos
+self.addEventListener("fetch", (event: any) => {
+  const { request } = event;
+  //   Solo maneja peticiones http(s), ignora chrome-extension://
+  const url: string = request.url;
+  if (
+    url.includes("/login") ||
+    url.includes("/admin") ||
+    url.includes("/admin/categorias") ||
+    url.includes("/admin/actualizar-menu") ||
+    url.includes("/api/categorias") ||
+    url.includes("/api/productos") ||
+    url.includes(".webp") ||
+    url.includes(".png") ||
+    url.includes(".jpg") ||
+    url.includes(".svg")
+  ) {
+    event.respondWith(networkFirst(request));
+  } else {
+    event.respondWith(networkOnly(request));
+  }
+});
+
 self.addEventListener("activate", (event: any) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -109,14 +135,4 @@ self.addEventListener("activate", (event: any) => {
     })
   );
   console.log("[Service Worker] Activado y cachés antiguos eliminados");
-});
-
-// Intercepta y maneja las solicitudes de recursos
-self.addEventListener("fetch", (event: any) => {
-  const { request } = event;
-  if (request.url.startsWith("http")) {
-    const urlPath = new URL(request.url).pathname;
-    const estrategia = estrategias[urlPath] || networkFirst;
-    event.respondWith(estrategia(request));
-  }
 });

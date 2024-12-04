@@ -81,7 +81,7 @@ const DayMenu: FC<Props> = ({ products }) => {
           >
             <div className="flex flex-col items-center gap-x-4   md:flex-row">
               <img
-                src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
+                src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp?lastUpdate=${producto.lastUpdate}`}
                 alt={producto.nombre}
                 className="w-full h-64 object-contain "
               />

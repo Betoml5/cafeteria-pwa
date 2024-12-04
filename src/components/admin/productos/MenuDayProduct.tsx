@@ -19,7 +19,7 @@ const MenuDayProduct: FC<Props> = ({
       <div>
         <img
           className="w-32 h-32 object-contain self-center"
-          src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
+          src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp?lastUpdate=${producto.lastUpdate}`}
           alt={producto.nombre}
         />
       </div>

@@ -12,7 +12,7 @@ const Product: FC<Props> = ({ product }) => {
         className={`w-1/2  h-full object-cover ${
           !product.disponible && "filter grayscale"
         }`}
-        src={`https://pwabrd.labsystec.net/producto/${product.id}.webp`}
+        src={`https://pwabrd.labsystec.net/producto/${product.id}.webp?lastUpdate=${product.lastUpdate}`}
         alt={product.nombre}
       />
       <div className="flex flex-col justify-center  w-1/2  mt-4">

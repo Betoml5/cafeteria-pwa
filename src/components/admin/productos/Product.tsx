@@ -60,7 +60,7 @@ const Product: FC<Props> = ({
             className={`w-32 h-32 object-contain self-center ${
               !producto.disponible && "grayscale"
             }`}
-            src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp`}
+            src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp?lastUpdate=${producto.lastUpdate}`}
             alt={producto.nombre}
           />
         </div>

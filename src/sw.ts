@@ -99,6 +99,9 @@ self.addEventListener("install", (event: any) => {
         "/admin/categorias",
         "/admin/actualizar-menu",
         "/more.png",
+        "/black-logo.png",
+        "/manifest.webmanifest",
+        "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
       ]);
     })
   );
@@ -107,7 +110,9 @@ self.addEventListener("install", (event: any) => {
 self.addEventListener("fetch", (event: any) => {
   const { request } = event;
   //   Solo maneja peticiones http(s), ignora chrome-extension://
+
   const url: string = request.url;
+
   if (
     url.includes("/login") ||
     url.includes("/admin") ||
@@ -118,7 +123,10 @@ self.addEventListener("fetch", (event: any) => {
     url.includes(".webp") ||
     url.includes(".png") ||
     url.includes(".jpg") ||
-    url.includes(".svg")
+    url.includes(".svg") ||
+    url.includes(
+      "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    )
   ) {
     event.respondWith(networkFirst(request));
   } else {

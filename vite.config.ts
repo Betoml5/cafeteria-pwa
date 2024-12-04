@@ -12,6 +12,10 @@ export default defineConfig({
       injectRegister: "auto",
       srcDir: "src",
       filename: "sw.ts",
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
       injectManifest: {
         injectionPoint: undefined,
       },

@@ -104,6 +104,17 @@ const Dashboard = () => {
                 {item.nombre}
               </p>
             ))}
+            <p
+              className="px-4 py-1 bg-white rounded-md border border-gray-400 cursor-pointer"
+              onClick={() => {
+                const elemt = document.getElementById("agotados");
+                if (elemt) {
+                  elemt.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              Agotados
+            </p>
           </div>
         </div>
       </div>
@@ -143,7 +154,10 @@ const Dashboard = () => {
             </div>
           ))}
         <p>Agotados</p>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap" id="agotados">
+          {productosAgotados?.length === 0 && (
+            <p className="text-center">No hay productos agotados</p>
+          )}
           {productosAgotados?.map((producto) => (
             <Product
               showContextMenu={false}

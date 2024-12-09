@@ -72,7 +72,7 @@ const GestionProductos = () => {
 
       <button
         onClick={() => setAction(MODALS_NAMES.ADD_PRODUCT)}
-        className="absolute bottom-2 right-4 p-2 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
+        className="absolute z-20 bottom-2 right-4 p-2 bg-amber-900 rounded-full text-white text-3xl hover:opacity-90"
       >
         <img src="/add.svg" alt="add" className="w-10 h-10 lg:w-12 lg:h-12" />
       </button>

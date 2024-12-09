@@ -9,7 +9,7 @@ const Product: FC<Props> = ({ product }) => {
   return (
     <div className="flex border gap-x-8 border-gray-500/70 bg-secondary-color rounded-lg  min-w-96 max-w-96 ">
       <img
-        className={`w-1/2  h-full object-cover ${
+        className={`w-1/2  h-32 self-center object-cover ${
           !product.disponible && "filter grayscale"
         }`}
         src={`https://pwabrd.labsystec.net/producto/${product.id}.webp?lastUpdate=${product.lastUpdate}`}

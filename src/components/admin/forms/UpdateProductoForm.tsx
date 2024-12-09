@@ -68,7 +68,7 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
   useEffect(() => {
     if (!producto) return;
     setImagePreview(
-      `https://pwabrd.labsystec.net/producto/${producto?.id}.webp`
+      `https://pwabrd.labsystec.net/producto/${producto?.id}.webp?lastUpdate=${producto?.lastUpdate}`
     );
   }, [producto]);
 

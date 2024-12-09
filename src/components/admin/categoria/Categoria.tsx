@@ -40,16 +40,16 @@ const Categoria: FC<Props> = ({
     <>
       <div
         onContextMenu={displayMenu}
-        className="relative bg-white w-fit px-2 py-4 rounded-md border border-gray-600/30 md:flex md:items-center md:gap-4"
+        className="relative bg-white w-52 rounded-md border border-gray-600/30  md:items-center md:gap-4"
       >
-        <div>
+        <div className="px-2 py-4 ">
           <img
-            className="w-32 h-28 object-contain"
+            className="w-full h-28 object-contain"
             src={`https://pwabrd.labsystec.net/categorias/${categoria.id}.webp?lastUpdate=${categoria.lastUpdate}`}
             alt=""
           />
         </div>
-        <div>
+        <div className="border px-4 py-2 rounded-t-xl">
           <p>{categoria.nombre}</p>
           <p>{categoria.productos.length} articulos</p>
         </div>

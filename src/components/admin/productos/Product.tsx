@@ -49,7 +49,7 @@ const Product: FC<Props> = ({
         onContextMenu={(e) => {
           if (showContextMenu) displayMenu(e);
         }}
-        className={`relative  flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 ${
+        className={`relative w-64  flex flex-col bg-white  px-10 py-4  rounded-lg m-2 min-w-40 ${
           producto.disponible
             ? "border-b-green-500 border-b-4"
             : "border-b-red-500 border-b-4"
@@ -57,7 +57,7 @@ const Product: FC<Props> = ({
       >
         <div>
           <img
-            className={`w-32 h-32 object-contain self-center ${
+            className={`w-full h-32 object-contain self-center ${
               !producto.disponible && "grayscale"
             }`}
             src={`https://pwabrd.labsystec.net/producto/${producto.id}.webp?lastUpdate=${producto.lastUpdate}`}

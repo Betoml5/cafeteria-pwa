@@ -9,7 +9,9 @@ import ProductsByCategory from "./screens/ProductsByCategory";
 import Login from "./screens/Login";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 import GestionProductos from "./screens/admin/GestionProductos";
+import useSession from "./hooks/auth/useSession";
 function App() {
+  useSession();
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

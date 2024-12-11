@@ -73,7 +73,10 @@ const Dashboard = () => {
             setSelectedProducto(null);
           }}
         >
-          <UpdateProductoForm producto={selectedProducto as IProducto} />
+          <UpdateProductoForm
+            onClose={onClose}
+            producto={selectedProducto as IProducto}
+          />
         </Modal>
       )}
 

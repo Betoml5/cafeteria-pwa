@@ -21,7 +21,11 @@ const DeleteCategoriaForm: FC<Props> = ({
     <div>
       <h1 className="text-center">
         ¿Estas seguro que deseas eliminar{" "}
-        <span className="font-semibold">{categoria.nombre}</span>?
+        <span className="font-semibold">{categoria.nombre}</span>?{" "}
+        <span>
+          Tiene <strong>{categoria.productos.length}</strong> productos, se
+          eliminaran todos estos
+        </span>
       </h1>
       <div className="flex justify-center gap-x-4 my-4">
         <button

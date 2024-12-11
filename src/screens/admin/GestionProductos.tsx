@@ -66,7 +66,10 @@ const GestionProductos = () => {
             setSelectedProducto(null);
           }}
         >
-          <UpdateProductoForm producto={selectedProducto as IProducto} />
+          <UpdateProductoForm
+            onClose={onClose}
+            producto={selectedProducto as IProducto}
+          />
         </Modal>
       )}
 
@@ -85,6 +88,13 @@ const GestionProductos = () => {
           <div className="flex items-center flex-wrap gap-2">
             {categorias.data?.map((item) => (
               <p
+                onClick={() => {
+                  const elemt = document.getElementById(item.nombre);
+                  console.log(elemt);
+                  if (elemt) {
+                    elemt.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
                 key={item.id}
                 className="px-4 py-1 bg-white rounded-md border border-gray-400 cursor-pointer"
               >
@@ -104,18 +114,9 @@ const GestionProductos = () => {
           ?.filter((categoria) => categoria.productos.length > 0)
           .map((categoria) => (
             <div key={categoria.id}>
-              <p
-                onClick={() => {
-                  const elemt = document.getElementById(categoria.nombre);
-                  if (elemt) {
-                    elemt.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                {categoria.nombre}
-              </p>
+              <p>{categoria.nombre}</p>
 
-              <div className="flex dayMenu">
+              <div className="flex dayMenu" id={categoria.nombre}>
                 {categoria.productos.map((producto: IProducto) => (
                   <Product
                     showContextMenu

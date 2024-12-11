@@ -15,6 +15,11 @@ const CategoriasView = () => {
   const [action, setAction] = useState<string | null>(null);
   const categorias = useCategorias();
 
+  const onClose = () => {
+    setSelectedCategoria(null);
+    setAction(null);
+  };
+
   return (
     <div className="p-4">
       {action === MODALS_NAMES.CREATE_CATEGORIA && (
@@ -38,7 +43,10 @@ const CategoriasView = () => {
           }}
           title="Editar categoría"
         >
-          <UpdateCategoriaForm categoria={selectedCategoria as ICategoria} />
+          <UpdateCategoriaForm
+            onClose={onClose}
+            categoria={selectedCategoria as ICategoria}
+          />
         </Modal>
       )}
       {action === MODALS_NAMES.DELETE_CATEGORIA && (

@@ -21,7 +21,7 @@ const useCategoriasMutation = () => {
     mutationKey: ["categorias"],
     mutationFn: CategoriaService.delete,
     onSuccess: () => {
-      toast("Categoría eliminado");
+      toast("Categoría eliminada");
       client.invalidateQueries(["categorias"]);
     },
     onError: () => {

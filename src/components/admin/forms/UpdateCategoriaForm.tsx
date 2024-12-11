@@ -6,6 +6,7 @@ import convertToBase64 from "../../../utils/convertToBase64";
 
 interface Props {
   categoria: ICategoria;
+  onClose: () => void;
 }
 
 interface FormValues {
@@ -14,7 +15,7 @@ interface FormValues {
   imagenBase64: File[];
 }
 
-const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
+const UpdateCategoriaForm: FC<Props> = ({ categoria, onClose }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const {
@@ -47,6 +48,7 @@ const UpdateCategoriaForm: FC<Props> = ({ categoria }) => {
       imagenBase64: image,
     };
     updateMutation.mutate(dto);
+    onClose();
   };
 
   useEffect(() => {

@@ -1,43 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CACHE_NAME } from "./constants/cache";
-import CategoriaService from "./services/Categoria";
-import ProductoService from "./services/Producto";
-import UpdateService from "./services/Update";
-
-// Refresh cache every 8 hours
-const cacheExpiration = 8 * 60 * 60 * 1000;
-
-// Cache-control header for caching
-setInterval(() => {
-  checkLastUpdates();
-}, cacheExpiration);
-
-const checkLastUpdates = async () => {
-  const response = await UpdateService.lastModified();
-
-  const lastProductsUpdate = localStorage.getItem("lastProductsUpdate");
-  const lastCategoriesUpdate = localStorage.getItem("lastCategoriesUpdate");
-
-  if (response.productos !== lastProductsUpdate) {
-    const productos = await ProductoService.get();
-    caches.open(CACHE_NAME).then((cache) => {
-      cache.put("/api/productos", new Response(JSON.stringify(productos)));
-    });
-  }
-
-  if (response.categorias !== lastCategoriesUpdate) {
-    const categorias = await CategoriaService.get();
-    caches.open(CACHE_NAME).then((cache) => {
-      cache.put("/api/categorias", new Response(JSON.stringify(categorias)));
-    });
-  }
-
-  localStorage.setItem("lastProductsUpdate", response.productos);
-  localStorage.setItem("lastCategoriesUpdate", response.categorias);
-};
 
 // const cacheFirst = async (request: Request): Promise<Response> => {
 //   try {

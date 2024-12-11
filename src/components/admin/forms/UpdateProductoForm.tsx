@@ -18,9 +18,10 @@ interface FormValues {
 
 interface Props {
   producto: IProducto;
+  onClose: () => void;
 }
 
-const UpdateProductoForm: FC<Props> = ({ producto }) => {
+const UpdateProductoForm: FC<Props> = ({ producto, onClose }) => {
   const categorias = useCategorias();
   const mutation = useProductosMutation();
 
@@ -49,11 +50,11 @@ const UpdateProductoForm: FC<Props> = ({ producto }) => {
         ...data,
         ImagenBase64: image,
       };
-      console.log(dto);
       mutation.updateMutation.mutate(dto);
     } catch (error: any) {
-      console.log(error);
       toast.error("Error al actualizar producto", error);
+    } finally {
+      onClose();
     }
   };
 

@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import { CACHE_NAME } from "./src/constants/cache";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +19,17 @@ export default defineConfig({
       },
       injectManifest: {
         injectionPoint: undefined,
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https?.*/, // Cache requests
+            handler: "NetworkFirst",
+            options: {
+              cacheName: CACHE_NAME,
+            },
+          },
+        ],
       },
       manifest: {
         name: "Cafetería TEC",

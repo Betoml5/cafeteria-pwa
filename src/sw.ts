@@ -112,7 +112,8 @@ self.addEventListener("fetch", (event: any) => {
   //   Solo maneja peticiones http(s), ignora chrome-extension://
 
   const url: string = request.url;
-
+  const urlOrigin: URL = new URL(url);
+  console.log(urlOrigin.pathname);
   if (
     url.includes("/login") ||
     url.includes("/admin") ||
@@ -130,7 +131,7 @@ self.addEventListener("fetch", (event: any) => {
   ) {
     event.respondWith(networkFirst(request));
   } else {
-    event.respondWith(networkOnly(request));
+    event.respondWith(networkFirst(request));
   }
 });
 

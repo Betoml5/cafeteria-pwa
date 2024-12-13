@@ -83,7 +83,6 @@ self.addEventListener("fetch", (event: any) => {
     url.includes("/admin/categorias") ||
     url.includes("/admin/actualizar-menu") ||
     url.includes("/api/categorias") ||
-    url.includes("/api/productos") ||
     url.includes(".webp") ||
     url.includes(".png") ||
     url.includes(".jpg") ||

@@ -39,16 +39,16 @@ async function networkFirst(request: Request): Promise<Response> {
   }
 }
 
-// async function networkOnly(request: Request): Promise<Response> {
-//   try {
-//     const respuesta = await fetch(request);
-//     return respuesta;
-//   } catch (error: any) {
-//     return new Response("Recurso no disponible en caché ni en la red", {
-//       status: 503,
-//     });
-//   }
-// }
+async function networkOnly(request: Request): Promise<Response> {
+  try {
+    const respuesta = await fetch(request);
+    return respuesta;
+  } catch (error: any) {
+    return new Response("Recurso no disponible en caché ni en la red", {
+      status: 503,
+    });
+  }
+}
 
 self.addEventListener("install", (event: any) => {
   console.log("[Service worker installed] ");
@@ -92,6 +92,8 @@ self.addEventListener("fetch", (event: any) => {
     )
   ) {
     event.respondWith(networkFirst(request));
+  } else if (url.includes("/api/productos/disponible")) {
+    event.respondWith(networkOnly(request));
   } else {
     event.respondWith(networkFirst(request));
   }
